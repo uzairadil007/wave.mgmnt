@@ -586,7 +586,7 @@
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
 <script>
   // ---------- Supabase connection ----------
-  const supabase = window.supabase.createClient(
+  const sb = window.supabase.createClient(
     'https://giqzdklwduvmfavrzjhz.supabase.co',
     'sb_publishable_GP3FDivbF9NDFytVIsTB6w_EMH82pD1'
   );
@@ -617,13 +617,13 @@
   }
 
   // Check if already logged in on page load
-  supabase.auth.getSession().then(({ data: { session } }) => {
+  sb.auth.getSession().then(({ data: { session } }) => {
     if (session) showApp(session);
     else showLogin();
   });
 
   // Keep in sync if session changes (e.g. token refresh, logout in another tab)
-  supabase.auth.onAuthStateChange((_event, session) => {
+  sb.auth.onAuthStateChange((_event, session) => {
     if (session) showApp(session);
     else showLogin();
   });
@@ -640,7 +640,7 @@
     loginBtn.textContent = 'Signing in…';
     loginMsg.textContent = '';
 
-    const { data, error } = await supabase.auth.signInWithPassword({ email, password });
+    const { data, error } = await sb.auth.signInWithPassword({ email, password });
 
     loginBtn.disabled = false;
     loginBtn.textContent = 'Sign in';
@@ -661,7 +661,7 @@
   });
 
   logoutBtn.addEventListener('click', async () => {
-    await supabase.auth.signOut();
+    await sb.auth.signOut();
     showLogin();
   });
 </script>
