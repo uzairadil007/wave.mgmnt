@@ -252,10 +252,66 @@
     .cal-cell{padding:4px;}
     .cal-post-tag{font-size:8.5px;}
   }
+
+  /* ---------- Login screen ---------- */
+  #loginScreen{
+    min-height:100vh;display:flex;align-items:center;justify-content:center;
+    padding:24px;
+  }
+  .login-box{
+    width:100%;max-width:380px;
+    border:1px solid var(--line);border-radius:8px;
+    padding:40px 36px;
+  }
+  .login-logo{font-family:'Archivo Black',sans-serif;font-size:22px;text-align:center;margin-bottom:8px;}
+  .login-logo .dot{color:var(--accent);}
+  .login-sub{text-align:center;font-size:14px;color:var(--muted);margin-bottom:32px;}
+  .login-label{font-size:12.5px;font-weight:700;text-transform:uppercase;letter-spacing:0.04em;color:var(--muted);margin-bottom:8px;display:block;}
+  .login-input{
+    width:100%;padding:13px 14px;border:1px solid var(--line);border-radius:5px;
+    font-size:14px;font-family:'Inter',sans-serif;margin-bottom:18px;
+    transition:border-color .2s;
+  }
+  .login-input:focus{outline:none;border-color:var(--accent);}
+  .login-btn{
+    width:100%;background:var(--accent);color:white;border:none;border-radius:5px;
+    padding:13px;font-weight:700;font-size:14px;letter-spacing:0.02em;
+    transition:background .2s;
+  }
+  .login-btn:hover{background:#022F36;}
+  .login-btn:disabled{opacity:0.6;cursor:not-allowed;}
+  .login-msg{
+    margin-top:16px;font-size:13px;text-align:center;color:var(--muted);
+    min-height:18px;
+  }
+  .login-msg.error{color:#B5472B;}
+  .login-msg.success{color:var(--accent);}
+  #appScreen{display:none;}
+  .logout-link{
+    font-size:13px;color:var(--muted);display:flex;align-items:center;gap:8px;
+    margin-top:10px;cursor:pointer;
+  }
+  .logout-link:hover{color:#B5472B;}
 </style>
 </head>
 <body>
 
+<!-- LOGIN SCREEN -->
+<div id="loginScreen">
+  <div class="login-box">
+    <div class="login-logo">wave<span class="dot">.</span>mgmnt</div>
+    <div class="login-sub">Sign in to your client portal</div>
+    <label class="login-label" for="emailInput">Email</label>
+    <input type="email" id="emailInput" class="login-input" placeholder="you@example.com" autocomplete="email">
+    <label class="login-label" for="passwordInput">Password</label>
+    <input type="password" id="passwordInput" class="login-input" placeholder="••••••••" autocomplete="current-password">
+    <button class="login-btn" id="loginBtn">Sign in</button>
+    <div class="login-msg" id="loginMsg"></div>
+  </div>
+</div>
+
+<!-- DASHBOARD (hidden until logged in) -->
+<div id="appScreen">
 <div class="app">
 
   <!-- SIDEBAR -->
@@ -285,11 +341,15 @@
         Back to site
       </a>
       <div class="profile-chip">
-        <div class="profile-avatar">MR</div>
+        <div class="profile-avatar" id="userAvatar">--</div>
         <div>
-          <p>Maria Reyes</p>
-          <span>Strength Coach</span>
+          <p id="userName">Loading…</p>
+          <span id="userEmail"></span>
         </div>
+      </div>
+      <div class="logout-link" id="logoutBtn">
+        <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M5 1H2.5C1.67 1 1 1.67 1 2.5V11.5C1 12.33 1.67 13 2.5 13H5M9.5 10L13 7L9.5 4M13 7H5" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        Sign out
       </div>
     </div>
   </aside>
@@ -521,6 +581,90 @@
 
   </main>
 </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+<script>
+  // ---------- Supabase connection ----------
+  const supabase = window.supabase.createClient(
+    'https://giqzdklwduvmfavrzjhz.supabase.co',
+    'sb_publishable_GP3FDivbF9NDFytVIsTB6w_EMH82pD1'
+  );
+
+  const loginScreen = document.getElementById('loginScreen');
+  const appScreen = document.getElementById('appScreen');
+  const loginBtn = document.getElementById('loginBtn');
+  const emailInput = document.getElementById('emailInput');
+  const passwordInput = document.getElementById('passwordInput');
+  const loginMsg = document.getElementById('loginMsg');
+  const logoutBtn = document.getElementById('logoutBtn');
+  const userAvatar = document.getElementById('userAvatar');
+  const userName = document.getElementById('userName');
+  const userEmail = document.getElementById('userEmail');
+
+  function showApp(session) {
+    loginScreen.style.display = 'none';
+    appScreen.style.display = 'block';
+    const email = session.user.email || '';
+    userEmail.textContent = email;
+    userName.textContent = email.split('@')[0];
+    userAvatar.textContent = email.slice(0, 2).toUpperCase();
+  }
+
+  function showLogin() {
+    loginScreen.style.display = 'flex';
+    appScreen.style.display = 'none';
+  }
+
+  // Check if already logged in on page load
+  supabase.auth.getSession().then(({ data: { session } }) => {
+    if (session) showApp(session);
+    else showLogin();
+  });
+
+  // Keep in sync if session changes (e.g. token refresh, logout in another tab)
+  supabase.auth.onAuthStateChange((_event, session) => {
+    if (session) showApp(session);
+    else showLogin();
+  });
+
+  loginBtn.addEventListener('click', async () => {
+    const email = emailInput.value.trim();
+    const password = passwordInput.value;
+    if (!email || !password) {
+      loginMsg.textContent = 'Enter both email and password.';
+      loginMsg.className = 'login-msg error';
+      return;
+    }
+    loginBtn.disabled = true;
+    loginBtn.textContent = 'Signing in…';
+    loginMsg.textContent = '';
+
+    const { data, error } = await supabase.auth.signInWithPassword({ email, password });
+
+    loginBtn.disabled = false;
+    loginBtn.textContent = 'Sign in';
+
+    if (error) {
+      loginMsg.textContent = error.message;
+      loginMsg.className = 'login-msg error';
+    } else {
+      loginMsg.textContent = 'Signed in!';
+      loginMsg.className = 'login-msg success';
+      showApp(data.session);
+    }
+  });
+
+  // Allow pressing Enter in the password field to submit
+  passwordInput.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter') loginBtn.click();
+  });
+
+  logoutBtn.addEventListener('click', async () => {
+    await supabase.auth.signOut();
+    showLogin();
+  });
+</script>
 
 <script>
   const dropZone = document.getElementById('dropZone');
