@@ -378,11 +378,11 @@
     <div class="stat-row">
       <div class="stat-box">
         <div class="label">Posts this month</div>
-        <div class="value">18</div>
+        <div class="value" id="statPostsCount">–</div>
       </div>
       <div class="stat-box">
         <div class="label">Awaiting your review</div>
-        <div class="value">3</div>
+        <div class="value" id="statReviewCount">–</div>
       </div>
       <div class="stat-box">
         <div class="label">Avg. engagement</div>
@@ -400,57 +400,19 @@
       <!-- LEFT: CALENDAR -->
       <div class="panel">
         <div class="panel-head">
-          <h2>June 2026</h2>
+          <h2 id="calMonthTitle">Loading…</h2>
           <div class="nav-arrows">
-            <button class="icon-btn"><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M9 1L3 7L9 13" stroke="currentColor" stroke-width="1.6"/></svg></button>
-            <span class="month-label">Jun 22 – 28</span>
-            <button class="icon-btn"><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M5 1L11 7L5 13" stroke="currentColor" stroke-width="1.6"/></svg></button>
+            <button class="icon-btn" id="prevMonthBtn"><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M9 1L3 7L9 13" stroke="currentColor" stroke-width="1.6"/></svg></button>
+            <span class="month-label" id="calRangeLabel"></span>
+            <button class="icon-btn" id="nextMonthBtn"><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M5 1L11 7L5 13" stroke="currentColor" stroke-width="1.6"/></svg></button>
           </div>
         </div>
         <div class="cal-wrap">
           <div class="cal-weekdays">
             <span>Sun</span><span>Mon</span><span>Tue</span><span>Wed</span><span>Thu</span><span>Fri</span><span>Sat</span>
           </div>
-          <div class="cal-grid">
-            <div class="cal-cell muted"><span class="date-num">31</span></div>
-            <div class="cal-cell"><span class="date-num">1</span></div>
-            <div class="cal-cell"><span class="date-num">2</span><div class="cal-post-tag ig">IG Reel</div></div>
-            <div class="cal-cell"><span class="date-num">3</span></div>
-            <div class="cal-cell"><span class="date-num">4</span><div class="cal-post-tag tk">TikTok</div></div>
-            <div class="cal-cell"><span class="date-num">5</span></div>
-            <div class="cal-cell"><span class="date-num">6</span><div class="cal-post-tag review">Review</div></div>
-
-            <div class="cal-cell"><span class="date-num">7</span></div>
-            <div class="cal-cell"><span class="date-num">8</span><div class="cal-post-tag ig">Carousel</div></div>
-            <div class="cal-cell"><span class="date-num">9</span></div>
-            <div class="cal-cell"><span class="date-num">10</span><div class="cal-post-tag yt">Shorts</div></div>
-            <div class="cal-cell"><span class="date-num">11</span></div>
-            <div class="cal-cell"><span class="date-num">12</span><div class="cal-post-tag ig">IG Reel</div></div>
-            <div class="cal-cell"><span class="date-num">13</span></div>
-
-            <div class="cal-cell"><span class="date-num">14</span></div>
-            <div class="cal-cell"><span class="date-num">15</span><div class="cal-post-tag tk">TikTok</div></div>
-            <div class="cal-cell"><span class="date-num">16</span></div>
-            <div class="cal-cell"><span class="date-num">17</span><div class="cal-post-tag review">Review</div></div>
-            <div class="cal-cell"><span class="date-num">18</span></div>
-            <div class="cal-cell"><span class="date-num">19</span><div class="cal-post-tag ig">Carousel</div></div>
-            <div class="cal-cell"><span class="date-num">20</span></div>
-
-            <div class="cal-cell"><span class="date-num">21</span></div>
-            <div class="cal-cell today"><span class="date-num">22</span><div class="cal-post-tag ig">IG Reel</div></div>
-            <div class="cal-cell"><span class="date-num">23</span></div>
-            <div class="cal-cell"><span class="date-num">24</span><div class="cal-post-tag tk">TikTok</div></div>
-            <div class="cal-cell"><span class="date-num">25</span><div class="cal-post-tag review">Review</div></div>
-            <div class="cal-cell"><span class="date-num">26</span></div>
-            <div class="cal-cell"><span class="date-num">27</span><div class="cal-post-tag yt">Shorts</div></div>
-
-            <div class="cal-cell"><span class="date-num">28</span></div>
-            <div class="cal-cell muted"><span class="date-num">29</span></div>
-            <div class="cal-cell muted"><span class="date-num">30</span></div>
-            <div class="cal-cell muted"><span class="date-num">1</span></div>
-            <div class="cal-cell muted"><span class="date-num">2</span></div>
-            <div class="cal-cell muted"><span class="date-num">3</span></div>
-            <div class="cal-cell muted"><span class="date-num">4</span></div>
+          <div class="cal-grid" id="calGrid">
+            <!-- filled in by JS from the posts table -->
           </div>
         </div>
         <div class="legend-row">
@@ -609,12 +571,127 @@
     userEmail.textContent = email;
     userName.textContent = email.split('@')[0];
     userAvatar.textContent = email.slice(0, 2).toUpperCase();
+    currentUserId = session.user.id;
+    loadCalendar();
   }
 
   function showLogin() {
     loginScreen.style.display = 'flex';
     appScreen.style.display = 'none';
   }
+
+  // ---------- Calendar ----------
+  let currentUserId = null;
+  let calMonth = new Date().getMonth(); // 0-indexed
+  let calYear = new Date().getFullYear();
+
+  const calGrid = document.getElementById('calGrid');
+  const calMonthTitle = document.getElementById('calMonthTitle');
+  const calRangeLabel = document.getElementById('calRangeLabel');
+  const statPostsCount = document.getElementById('statPostsCount');
+  const statReviewCount = document.getElementById('statReviewCount');
+  const prevMonthBtn = document.getElementById('prevMonthBtn');
+  const nextMonthBtn = document.getElementById('nextMonthBtn');
+
+  const MONTH_NAMES = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+  const PLATFORM_CLASS = { instagram: 'ig', tiktok: 'tk', youtube: 'yt' };
+  const PLATFORM_LABEL = { instagram: 'Instagram', tiktok: 'TikTok', youtube: 'YouTube' };
+
+  function formatDateLocal(d) {
+    // YYYY-MM-DD using local time, avoids UTC off-by-one issues
+    const y = d.getFullYear();
+    const m = String(d.getMonth() + 1).padStart(2, '0');
+    const day = String(d.getDate()).padStart(2, '0');
+    return `${y}-${m}-${day}`;
+  }
+
+  async function loadCalendar() {
+    calGrid.innerHTML = '<div style="padding:20px;color:var(--muted);font-size:13px;">Loading calendar…</div>';
+    calMonthTitle.textContent = `${MONTH_NAMES[calMonth]} ${calYear}`;
+
+    const firstOfMonth = new Date(calYear, calMonth, 1);
+    const lastOfMonth = new Date(calYear, calMonth + 1, 0);
+    const gridStart = new Date(firstOfMonth);
+    gridStart.setDate(gridStart.getDate() - firstOfMonth.getDay()); // back up to Sunday
+    const gridEnd = new Date(lastOfMonth);
+    gridEnd.setDate(gridEnd.getDate() + (6 - lastOfMonth.getDay())); // forward to Saturday
+
+    calRangeLabel.textContent = `${MONTH_NAMES[calMonth].slice(0,3)} ${firstOfMonth.getDate()} – ${lastOfMonth.getDate()}`;
+
+    let posts = [];
+    if (currentUserId) {
+      const { data, error } = await sb
+        .from('posts')
+        .select('*')
+        .eq('client_id', currentUserId)
+        .gte('post_date', formatDateLocal(gridStart))
+        .lte('post_date', formatDateLocal(gridEnd));
+
+      if (error) {
+        calGrid.innerHTML = `<div style="padding:20px;color:#B5472B;font-size:13px;">Couldn't load posts: ${error.message}</div>`;
+        return;
+      }
+      posts = data || [];
+    }
+
+    // Group posts by date string for quick lookup
+    const postsByDate = {};
+    posts.forEach(p => {
+      const key = p.post_date;
+      if (!postsByDate[key]) postsByDate[key] = [];
+      postsByDate[key].push(p);
+    });
+
+    // Stats
+    const monthPosts = posts.filter(p => {
+      const d = new Date(p.post_date + 'T00:00:00');
+      return d.getMonth() === calMonth && d.getFullYear() === calYear;
+    });
+    statPostsCount.textContent = monthPosts.length;
+    statReviewCount.textContent = monthPosts.filter(p => p.status === 'review').length;
+
+    // Build grid
+    const todayKey = formatDateLocal(new Date());
+    let html = '';
+    let cursor = new Date(gridStart);
+    while (cursor <= gridEnd) {
+      const key = formatDateLocal(cursor);
+      const inMonth = cursor.getMonth() === calMonth;
+      const isToday = key === todayKey;
+      const dayPosts = postsByDate[key] || [];
+
+      let classes = 'cal-cell';
+      if (!inMonth) classes += ' muted';
+      if (isToday) classes += ' today';
+
+      let tagsHtml = '';
+      dayPosts.slice(0, 1).forEach(p => {
+        if (p.status === 'review') {
+          tagsHtml += `<div class="cal-post-tag review">Review</div>`;
+        } else {
+          const cls = PLATFORM_CLASS[p.platform] || 'ig';
+          const label = p.format ? p.format[0].toUpperCase() + p.format.slice(1) : (PLATFORM_LABEL[p.platform] || 'Post');
+          tagsHtml += `<div class="cal-post-tag ${cls}">${label}</div>`;
+        }
+      });
+
+      html += `<div class="${classes}"><span class="date-num">${cursor.getDate()}</span>${tagsHtml}</div>`;
+      cursor.setDate(cursor.getDate() + 1);
+    }
+    calGrid.innerHTML = html;
+  }
+
+  prevMonthBtn.addEventListener('click', () => {
+    calMonth -= 1;
+    if (calMonth < 0) { calMonth = 11; calYear -= 1; }
+    loadCalendar();
+  });
+
+  nextMonthBtn.addEventListener('click', () => {
+    calMonth += 1;
+    if (calMonth > 11) { calMonth = 0; calYear += 1; }
+    loadCalendar();
+  });
 
   // Check if already logged in on page load
   sb.auth.getSession().then(({ data: { session } }) => {
