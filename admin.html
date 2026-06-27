@@ -72,6 +72,20 @@
   .logout-link{font-size:13px;color:var(--muted);cursor:pointer;}
   .logout-link:hover{color:#B5472B;}
 
+  .drive-status-pill{
+    display:inline-flex;align-items:center;gap:6px;
+    font-size:12px;font-weight:600;padding:5px 10px;border-radius:20px;
+  }
+  .drive-status-pill.disconnected{background:var(--tint);color:var(--muted);}
+  .drive-status-pill.connected{background:var(--accent-soft);color:var(--accent);}
+  .connect-drive-btn{
+    background:var(--ink);color:white;border:none;border-radius:5px;
+    padding:8px 14px;font-size:12.5px;font-weight:700;
+    transition:background .2s;
+  }
+  .connect-drive-btn:hover{background:var(--accent);}
+  .connect-drive-btn:disabled{opacity:0.6;cursor:not-allowed;}
+
   .wrap{max-width:760px;margin:0 auto;padding:48px 24px 80px;}
   .wrap h1{font-size:clamp(24px,3vw,30px);margin-bottom:8px;}
   .wrap > p.sub{color:var(--muted);font-size:14.5px;margin-bottom:36px;}
@@ -165,6 +179,11 @@
   <div class="topbar">
     <a href="index.html" class="logo">wave<span class="dot">.</span>mgmnt <span style="color:var(--muted);font-weight:600;font-size:13px;text-transform:none;">/ admin</span></a>
     <div class="topbar-right">
+      <span id="driveStatus" class="drive-status-pill disconnected">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M7.71 3.5L1.15 15l3.43 6h6.56l-6.57-11.5h3.14zM10.7 3.5l6.57 11.5H10.7l-3.42-6h6.85zM16.85 9.5L22 18.5l-3.43 6h-6.56l3.42-6h-3.13z"/></svg>
+        Drive not connected
+      </span>
+      <button id="connectDriveBtn" class="connect-drive-btn">Connect Google Drive</button>
       <a href="portal.html">View client portal</a>
       <span class="logout-link" id="logoutBtn">Sign out</span>
     </div>
@@ -256,7 +275,61 @@
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+<script src="https://accounts.google.com/gsi/client" async defer></script>
 <script>
+  // ---------- Google Drive connection ----------
+  const GOOGLE_CLIENT_ID = '621318428768-qo8uf3ru4213rspae1k5vea3c4oiduns.apps.googleusercontent.com';
+  const DRIVE_SCOPE = 'https://www.googleapis.com/auth/drive.file';
+  let driveAccessToken = null;
+  let tokenClient = null;
+
+  const driveStatus = document.getElementById('driveStatus');
+  const connectDriveBtn = document.getElementById('connectDriveBtn');
+
+  function setDriveConnected(connected) {
+    if (connected) {
+      driveStatus.className = 'drive-status-pill connected';
+      driveStatus.innerHTML = `<svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M7.71 3.5L1.15 15l3.43 6h6.56l-6.57-11.5h3.14zM10.7 3.5l6.57 11.5H10.7l-3.42-6h6.85zM16.85 9.5L22 18.5l-3.43 6h-6.56l3.42-6h-3.13z"/></svg> Drive connected`;
+      connectDriveBtn.textContent = 'Reconnect Drive';
+    } else {
+      driveStatus.className = 'drive-status-pill disconnected';
+      driveStatus.innerHTML = `<svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M7.71 3.5L1.15 15l3.43 6h6.56l-6.57-11.5h3.14zM10.7 3.5l6.57 11.5H10.7l-3.42-6h6.85zM16.85 9.5L22 18.5l-3.43 6h-6.56l3.42-6h-3.13z"/></svg> Drive not connected`;
+      connectDriveBtn.textContent = 'Connect Google Drive';
+    }
+  }
+
+  function initGoogleTokenClient() {
+    if (!window.google || !window.google.accounts) {
+      // Library hasn't loaded yet — try again shortly
+      setTimeout(initGoogleTokenClient, 300);
+      return;
+    }
+    tokenClient = google.accounts.oauth2.initTokenClient({
+      client_id: GOOGLE_CLIENT_ID,
+      scope: DRIVE_SCOPE,
+      callback: (response) => {
+        if (response.error) {
+          alert('Google Drive connection failed: ' + response.error);
+          return;
+        }
+        driveAccessToken = response.access_token;
+        setDriveConnected(true);
+        // Token lasts ~1 hour. We keep it in memory only (not localStorage,
+        // since that's disabled in this environment) — reconnect after it expires.
+      },
+    });
+  }
+
+  connectDriveBtn.addEventListener('click', () => {
+    if (!tokenClient) {
+      alert('Still loading Google sign-in — try again in a second.');
+      return;
+    }
+    tokenClient.requestAccessToken();
+  });
+
+  initGoogleTokenClient();
+
   const sb = window.supabase.createClient(
     'https://giqzdklwduvmfavrzjhz.supabase.co',
     'sb_publishable_GP3FDivbF9NDFytVIsTB6w_EMH82pD1'
