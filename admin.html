@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Admin — wave.mgmnt</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --white:#FFFFFF;
+    --ink:#0E1410;
+    --accent:#034750;
+    --accent-soft:#E2EDEC;
+    --tint:#F5F6F3;
+    --line:#E4E6E1;
+    --muted:#5C6358;
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  body{
+    background:var(--white);color:var(--ink);
+    font-family:'Inter',sans-serif;-webkit-font-smoothing:antialiased;
+  }
+  .display{font-family:'Archivo Black',sans-serif;text-transform:uppercase;letter-spacing:-0.01em;line-height:0.95;}
+  a{color:inherit;text-decoration:none;}
+  button{font-family:inherit;cursor:pointer;}
+
+  /* ---------- Login screen (same as portal.html) ---------- */
+  #loginScreen{
+    min-height:100vh;display:flex;align-items:center;justify-content:center;
+    padding:24px;
+  }
+  .login-box{
+    width:100%;max-width:380px;
+    border:1px solid var(--line);border-radius:8px;
+    padding:40px 36px;
+  }
+  .login-logo{font-family:'Archivo Black',sans-serif;font-size:22px;text-align:center;margin-bottom:8px;}
+  .login-logo .dot{color:var(--accent);}
+  .login-sub{text-align:center;font-size:14px;color:var(--muted);margin-bottom:32px;}
+  .login-label{font-size:12.5px;font-weight:700;text-transform:uppercase;letter-spacing:0.04em;color:var(--muted);margin-bottom:8px;display:block;}
+  .login-input{
+    width:100%;padding:13px 14px;border:1px solid var(--line);border-radius:5px;
+    font-size:14px;font-family:'Inter',sans-serif;margin-bottom:18px;
+    transition:border-color .2s;
+  }
+  .login-input:focus{outline:none;border-color:var(--accent);}
+  .login-btn{
+    width:100%;background:var(--accent);color:white;border:none;border-radius:5px;
+    padding:13px;font-weight:700;font-size:14px;letter-spacing:0.02em;
+    transition:background .2s;
+  }
+  .login-btn:hover{background:#022F36;}
+  .login-btn:disabled{opacity:0.6;cursor:not-allowed;}
+  .login-msg{margin-top:16px;font-size:13px;text-align:center;color:var(--muted);min-height:18px;}
+  .login-msg.error{color:#B5472B;}
+  .login-msg.success{color:var(--accent);}
+  #appScreen{display:none;}
+
+  /* ---------- Admin shell ---------- */
+  .topbar{
+    border-bottom:1px solid var(--line);
+    padding:18px 32px;
+    display:flex;justify-content:space-between;align-items:center;
+  }
+  .logo{font-family:'Archivo Black',sans-serif;font-size:18px;}
+  .logo .dot{color:var(--accent);}
+  .topbar-right{display:flex;align-items:center;gap:18px;}
+  .topbar-right a{font-size:13px;color:var(--muted);}
+  .topbar-right a:hover{color:var(--ink);}
+  .logout-link{font-size:13px;color:var(--muted);cursor:pointer;}
+  .logout-link:hover{color:#B5472B;}
+
+  .wrap{max-width:760px;margin:0 auto;padding:48px 24px 80px;}
+  .wrap h1{font-size:clamp(24px,3vw,30px);margin-bottom:8px;}
+  .wrap > p.sub{color:var(--muted);font-size:14.5px;margin-bottom:36px;}
+
+  .form-panel{border:1px solid var(--line);border-radius:8px;padding:32px;margin-bottom:28px;}
+  .form-row{margin-bottom:20px;}
+  .form-row label{
+    font-size:12.5px;font-weight:700;text-transform:uppercase;letter-spacing:0.04em;
+    color:var(--muted);margin-bottom:8px;display:block;
+  }
+  .form-input, .form-select, .form-textarea{
+    width:100%;padding:12px 14px;border:1px solid var(--line);border-radius:5px;
+    font-size:14px;font-family:'Inter',sans-serif;background:white;
+    transition:border-color .2s;
+  }
+  .form-input:focus, .form-select:focus, .form-textarea:focus{outline:none;border-color:var(--accent);}
+  .form-textarea{resize:vertical;min-height:80px;}
+  .form-grid-2{display:grid;grid-template-columns:1fr 1fr;gap:16px;}
+  .form-grid-3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px;}
+
+  .submit-btn{
+    background:var(--accent);color:white;border:none;border-radius:5px;
+    padding:13px 24px;font-weight:700;font-size:14px;letter-spacing:0.02em;
+    display:inline-flex;align-items:center;gap:8px;
+    transition:background .2s;
+  }
+  .submit-btn:hover{background:#022F36;}
+  .submit-btn:disabled{opacity:0.6;cursor:not-allowed;}
+
+  .form-msg{margin-top:14px;font-size:13.5px;min-height:18px;}
+  .form-msg.error{color:#B5472B;}
+  .form-msg.success{color:var(--accent);font-weight:600;}
+
+  /* Recent posts table */
+  .recent-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:14px;}
+  .recent-head h2{font-size:16px;font-weight:800;}
+  .recent-head button{
+    border:1px solid var(--line);background:white;border-radius:5px;
+    padding:7px 13px;font-size:12.5px;font-weight:700;color:var(--muted);
+  }
+  .recent-head button:hover{background:var(--tint);color:var(--ink);}
+
+  table{width:100%;border-collapse:collapse;font-size:13.5px;}
+  th{
+    text-align:left;font-size:11.5px;text-transform:uppercase;letter-spacing:0.04em;
+    color:var(--muted);padding:10px 12px;border-bottom:1px solid var(--line);
+  }
+  td{padding:12px 12px;border-bottom:1px solid var(--line);}
+  tr:last-child td{border-bottom:none;}
+  .status-tag{
+    display:inline-flex;align-items:center;gap:6px;
+    font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.03em;
+    padding:3px 9px;border-radius:20px;
+  }
+  .status-tag::before{content:'';width:6px;height:6px;border-radius:50%;}
+  .status-tag.scheduled{background:#EFF3EC;color:#5C6358;}
+  .status-tag.scheduled::before{background:#9CA593;}
+  .status-tag.review{background:#FFF4E0;color:#9A6B00;}
+  .status-tag.review::before{background:#D89A00;}
+  .status-tag.approved{background:var(--accent-soft);color:var(--accent);}
+  .status-tag.approved::before{background:var(--accent);}
+  .status-tag.posted{background:#E9EEFB;color:#3552B0;}
+  .status-tag.posted::before{background:#3552B0;}
+  .empty-row{color:var(--muted);text-align:center;padding:32px 0;}
+
+  @media (max-width: 600px){
+    .form-grid-2, .form-grid-3{grid-template-columns:1fr;}
+    .wrap{padding:32px 18px 60px;}
+  }
+</style>
+</head>
+<body>
+
+<!-- LOGIN SCREEN -->
+<div id="loginScreen">
+  <div class="login-box">
+    <div class="login-logo">wave<span class="dot">.</span>mgmnt</div>
+    <div class="login-sub">Admin sign in</div>
+    <label class="login-label" for="emailInput">Email</label>
+    <input type="email" id="emailInput" class="login-input" placeholder="you@example.com" autocomplete="email">
+    <label class="login-label" for="passwordInput">Password</label>
+    <input type="password" id="passwordInput" class="login-input" placeholder="••••••••" autocomplete="current-password">
+    <button class="login-btn" id="loginBtn">Sign in</button>
+    <div class="login-msg" id="loginMsg"></div>
+  </div>
+</div>
+
+<!-- ADMIN APP -->
+<div id="appScreen">
+
+  <div class="topbar">
+    <a href="index.html" class="logo">wave<span class="dot">.</span>mgmnt <span style="color:var(--muted);font-weight:600;font-size:13px;text-transform:none;">/ admin</span></a>
+    <div class="topbar-right">
+      <a href="portal.html">View client portal</a>
+      <span class="logout-link" id="logoutBtn">Sign out</span>
+    </div>
+  </div>
+
+  <div class="wrap">
+    <h1 class="display" style="font-size:28px;">Add a post</h1>
+    <p class="sub">Schedule content for a client. It'll appear on their calendar right away.</p>
+
+    <div class="form-panel">
+      <div class="form-row">
+        <label for="clientSelect">Client</label>
+        <select id="clientSelect" class="form-select">
+          <option value="">Loading clients…</option>
+        </select>
+      </div>
+
+      <div class="form-grid-3">
+        <div class="form-row">
+          <label for="postDate">Post date</label>
+          <input type="date" id="postDate" class="form-input">
+        </div>
+        <div class="form-row">
+          <label for="platform">Platform</label>
+          <select id="platform" class="form-select">
+            <option value="instagram">Instagram</option>
+            <option value="tiktok">TikTok</option>
+            <option value="youtube">YouTube</option>
+          </select>
+        </div>
+        <div class="form-row">
+          <label for="format">Format</label>
+          <select id="format" class="form-select">
+            <option value="reel">Reel</option>
+            <option value="carousel">Carousel</option>
+            <option value="short">Short</option>
+            <option value="post">Post</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="form-row">
+        <label for="caption">Caption</label>
+        <textarea id="caption" class="form-textarea" placeholder="Write the caption for this post…"></textarea>
+      </div>
+
+      <div class="form-grid-2">
+        <div class="form-row">
+          <label for="status">Status</label>
+          <select id="status" class="form-select">
+            <option value="scheduled">Scheduled</option>
+            <option value="review">Needs client review</option>
+            <option value="approved">Approved</option>
+            <option value="posted">Posted</option>
+          </select>
+        </div>
+        <div class="form-row">
+          <label for="thumbnailUrl">Thumbnail URL (optional)</label>
+          <input type="url" id="thumbnailUrl" class="form-input" placeholder="https://…">
+        </div>
+      </div>
+
+      <button class="submit-btn" id="submitBtn">
+        <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M7 1V13M1 7H13" stroke="currentColor" stroke-width="1.8"/></svg>
+        Add post
+      </button>
+      <div class="form-msg" id="formMsg"></div>
+    </div>
+
+    <div class="recent-head">
+      <h2>Recently added</h2>
+      <button id="refreshBtn">Refresh</button>
+    </div>
+    <table>
+      <thead>
+        <tr>
+          <th>Client</th>
+          <th>Date</th>
+          <th>Platform</th>
+          <th>Status</th>
+        </tr>
+      </thead>
+      <tbody id="recentBody">
+        <tr><td colspan="4" class="empty-row">Loading…</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+<script>
+  const sb = window.supabase.createClient(
+    'https://giqzdklwduvmfavrzjhz.supabase.co',
+    'sb_publishable_GP3FDivbF9NDFytVIsTB6w_EMH82pD1'
+  );
+
+  const loginScreen = document.getElementById('loginScreen');
+  const appScreen = document.getElementById('appScreen');
+  const loginBtn = document.getElementById('loginBtn');
+  const emailInput = document.getElementById('emailInput');
+  const passwordInput = document.getElementById('passwordInput');
+  const loginMsg = document.getElementById('loginMsg');
+  const logoutBtn = document.getElementById('logoutBtn');
+
+  const clientSelect = document.getElementById('clientSelect');
+  const postDate = document.getElementById('postDate');
+  const platform = document.getElementById('platform');
+  const format = document.getElementById('format');
+  const caption = document.getElementById('caption');
+  const status = document.getElementById('status');
+  const thumbnailUrl = document.getElementById('thumbnailUrl');
+  const submitBtn = document.getElementById('submitBtn');
+  const formMsg = document.getElementById('formMsg');
+  const recentBody = document.getElementById('recentBody');
+  const refreshBtn = document.getElementById('refreshBtn');
+
+  function showApp() {
+    loginScreen.style.display = 'none';
+    appScreen.style.display = 'block';
+    loadClients();
+    loadRecentPosts();
+    // Default the date field to today
+    const today = new Date();
+    postDate.value = today.toISOString().slice(0, 10);
+  }
+
+  function showLogin() {
+    loginScreen.style.display = 'flex';
+    appScreen.style.display = 'none';
+  }
+
+  sb.auth.getSession().then(({ data: { session } }) => {
+    if (session) showApp();
+    else showLogin();
+  });
+
+  sb.auth.onAuthStateChange((_event, session) => {
+    if (session) showApp();
+    else showLogin();
+  });
+
+  loginBtn.addEventListener('click', async () => {
+    const email = emailInput.value.trim();
+    const password = passwordInput.value;
+    if (!email || !password) {
+      loginMsg.textContent = 'Enter both email and password.';
+      loginMsg.className = 'login-msg error';
+      return;
+    }
+    loginBtn.disabled = true;
+    loginBtn.textContent = 'Signing in…';
+    loginMsg.textContent = '';
+
+    const { data, error } = await sb.auth.signInWithPassword({ email, password });
+
+    loginBtn.disabled = false;
+    loginBtn.textContent = 'Sign in';
+
+    if (error) {
+      loginMsg.textContent = error.message;
+      loginMsg.className = 'login-msg error';
+    } else {
+      loginMsg.textContent = 'Signed in!';
+      loginMsg.className = 'login-msg success';
+      showApp();
+    }
+  });
+
+  passwordInput.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter') loginBtn.click();
+  });
+
+  logoutBtn.addEventListener('click', async () => {
+    await sb.auth.signOut();
+    showLogin();
+  });
+
+  // ---------- Load clients into the dropdown ----------
+  async function loadClients() {
+    const { data, error } = await sb.from('clients').select('id, name, business_name');
+    if (error) {
+      clientSelect.innerHTML = `<option value="">Couldn't load clients</option>`;
+      return;
+    }
+    if (!data || data.length === 0) {
+      clientSelect.innerHTML = `<option value="">No clients found — add one in Supabase first</option>`;
+      return;
+    }
+    clientSelect.innerHTML = data.map(c =>
+      `<option value="${c.id}">${c.name || 'Unnamed'} ${c.business_name ? '— ' + c.business_name : ''}</option>`
+    ).join('');
+  }
+
+  // ---------- Submit new post ----------
+  submitBtn.addEventListener('click', async () => {
+    const clientId = clientSelect.value;
+    if (!clientId) {
+      formMsg.textContent = 'Pick a client first.';
+      formMsg.className = 'form-msg error';
+      return;
+    }
+    if (!postDate.value) {
+      formMsg.textContent = 'Pick a post date.';
+      formMsg.className = 'form-msg error';
+      return;
+    }
+
+    submitBtn.disabled = true;
+    formMsg.textContent = '';
+
+    const { error } = await sb.from('posts').insert({
+      client_id: clientId,
+      post_date: postDate.value,
+      platform: platform.value,
+      format: format.value,
+      caption: caption.value || null,
+      status: status.value,
+      thumbnail_url: thumbnailUrl.value || null,
+    });
+
+    submitBtn.disabled = false;
+
+    if (error) {
+      formMsg.textContent = `Couldn't add post: ${error.message}`;
+      formMsg.className = 'form-msg error';
+    } else {
+      formMsg.textContent = 'Post added — it will show on the client\u2019s calendar.';
+      formMsg.className = 'form-msg success';
+      caption.value = '';
+      thumbnailUrl.value = '';
+      loadRecentPosts();
+    }
+  });
+
+  // ---------- Recently added posts table ----------
+  async function loadRecentPosts() {
+    recentBody.innerHTML = `<tr><td colspan="4" class="empty-row">Loading…</td></tr>`;
+
+    const { data, error } = await sb
+      .from('posts')
+      .select('id, post_date, platform, status, client_id, clients(name, business_name)')
+      .order('id', { ascending: false })
+      .limit(10);
+
+    if (error) {
+      recentBody.innerHTML = `<tr><td colspan="4" class="empty-row" style="color:#B5472B;">Couldn't load: ${error.message}</td></tr>`;
+      return;
+    }
+    if (!data || data.length === 0) {
+      recentBody.innerHTML = `<tr><td colspan="4" class="empty-row">No posts yet.</td></tr>`;
+      return;
+    }
+
+    recentBody.innerHTML = data.map(p => {
+      const clientLabel = p.clients ? (p.clients.name || p.clients.business_name || 'Unknown') : 'Unknown';
+      const platformLabel = p.platform ? p.platform[0].toUpperCase() + p.platform.slice(1) : '—';
+      return `
+        <tr>
+          <td>${clientLabel}</td>
+          <td>${p.post_date}</td>
+          <td>${platformLabel}</td>
+          <td><span class="status-tag ${p.status}">${p.status}</span></td>
+        </tr>
+      `;
+    }).join('');
+  }
+
+  refreshBtn.addEventListener('click', loadRecentPosts);
+</script>
+
+</body>
+</html>
