@@ -619,6 +619,7 @@
     userAvatar.textContent = email.slice(0, 2).toUpperCase();
     currentUserId = session.user.id;
     loadCalendar();
+    if (typeof loadUploadedFiles === 'function') loadUploadedFiles();
   }
 
   function showLogin() {
@@ -869,41 +870,82 @@
     return '<svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M2 3.5L10 8L2 12.5V3.5Z" fill="currentColor"/></svg>';
   }
 
-  function handleFiles(files){
-    Array.from(files).forEach(file=>{
-      const row = document.createElement('div');
-      row.className = 'file-row';
-      const sizeMB = (file.size / (1024*1024)).toFixed(1);
-      row.innerHTML = `
-        <div class="file-thumb">${fileIcon(file.name)}</div>
-        <div class="file-info">
-          <div class="fname">${file.name}</div>
-          <div class="fmeta">${sizeMB} MB · Uploading to Drive…</div>
-          <div class="file-progress"><div class="file-progress-bar" style="width:0%;"></div></div>
-        </div>
-      `;
-      fileList.prepend(row);
-      const bar = row.querySelector('.file-progress-bar');
-      const meta = row.querySelector('.fmeta');
-      let pct = 0;
-      const interval = setInterval(()=>{
-        pct += Math.random()*28;
-        if(pct >= 100){
-          pct = 100;
-          clearInterval(interval);
-          bar.parentElement.remove();
-          meta.textContent = `${sizeMB} MB · Uploaded just now`;
-          const check = document.createElement('svg');
-          check.setAttribute('class','file-check');
-          check.setAttribute('width','18'); check.setAttribute('height','18');
-          check.setAttribute('viewBox','0 0 18 18'); check.setAttribute('fill','none');
-          check.innerHTML = '<circle cx="9" cy="9" r="8" stroke="currentColor" stroke-width="1.5"/><path d="M5.5 9L8 11.5L12.5 6.5" stroke="currentColor" stroke-width="1.5"/>';
-          row.appendChild(check);
-        }
-        bar.style.width = pct + '%';
-      }, 220);
-    });
+  function formatBytes(bytes){
+    if (!bytes) return '0 MB';
+    return (bytes / (1024*1024)).toFixed(1) + ' MB';
   }
+
+  function checkIcon(){
+    return '<svg class="file-check" width="18" height="18" viewBox="0 0 18 18" fill="none"><circle cx="9" cy="9" r="8" stroke="currentColor" stroke-width="1.5"/><path d="M5.5 9L8 11.5L12.5 6.5" stroke="currentColor" stroke-width="1.5"/></svg>';
+  }
+
+  // ---------- Load already-uploaded files for this client ----------
+  async function loadUploadedFiles(){
+    if (!currentUserId) return;
+    fileList.innerHTML = '<div style="padding:14px 0;color:var(--muted);font-size:13px;">Loading your files…</div>';
+
+    const { data, error } = await sb.storage
+      .from('client-uploads')
+      .list(currentUserId, { sortBy: { column: 'created_at', order: 'desc' } });
+
+    if (error) {
+      fileList.innerHTML = `<div style="padding:14px 0;color:#B5472B;font-size:13px;">Couldn't load files: ${error.message}</div>`;
+      return;
+    }
+    if (!data || data.length === 0) {
+      fileList.innerHTML = '<div style="padding:14px 0;color:var(--muted);font-size:13px;">No files uploaded yet.</div>';
+      return;
+    }
+
+    fileList.innerHTML = data.map(f => `
+      <div class="file-row">
+        <div class="file-thumb">${fileIcon(f.name)}</div>
+        <div class="file-info">
+          <div class="fname">${f.name}</div>
+          <div class="fmeta">${formatBytes(f.metadata?.size)} · Uploaded ${f.created_at ? new Date(f.created_at).toLocaleDateString() : ''}</div>
+        </div>
+        ${checkIcon()}
+      </div>
+    `).join('');
+  }
+
+  // ---------- Real upload to Supabase Storage ----------
+  function handleFiles(files){
+    if (!currentUserId) {
+      alert('Please wait for the page to finish loading before uploading.');
+      return;
+    }
+    Array.from(files).forEach(file => uploadOneFile(file));
+  }
+
+  async function uploadOneFile(file){
+    const row = document.createElement('div');
+    row.className = 'file-row';
+    const sizeLabel = formatBytes(file.size);
+    row.innerHTML = `
+      <div class="file-thumb">${fileIcon(file.name)}</div>
+      <div class="file-info">
+        <div class="fname">${file.name}</div>
+        <div class="fmeta">${sizeLabel} · Uploading…</div>
+      </div>
+    `;
+    fileList.prepend(row);
+    const meta = row.querySelector('.fmeta');
+
+    const path = `${currentUserId}/${Date.now()}_${file.name}`;
+    const { error } = await sb.storage
+      .from('client-uploads')
+      .upload(path, file, { upsert: false });
+
+    if (error) {
+      meta.textContent = `Upload failed: ${error.message}`;
+      meta.style.color = '#B5472B';
+    } else {
+      meta.textContent = `${sizeLabel} · Uploaded just now`;
+      row.appendChild(document.createRange().createContextualFragment(checkIcon()));
+    }
+  }
+
 </script>
 
 </body>
