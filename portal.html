@@ -513,26 +513,43 @@
       <div class="panel-mini-head">
         <h2 style="font-size:18px;">Upload raw content</h2>
       </div>
+
+      <!-- Google Drive folder access -->
+      <div class="panel" id="driveFolderPanel" style="margin-bottom:24px;display:none;">
+        <div class="panel-head">
+          <h2>Your Google Drive folder</h2>
+        </div>
+        <div style="padding:24px 22px;display:flex;align-items:center;gap:18px;flex-wrap:wrap;">
+          <div style="width:44px;height:44px;border-radius:8px;background:var(--accent-soft);display:flex;align-items:center;justify-content:center;color:var(--accent);flex-shrink:0;">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M7.71 3.5L1.15 15l3.43 6h6.56l-6.57-11.5h3.14zM10.7 3.5l6.57 11.5H10.7l-3.42-6h6.85zM16.85 9.5L22 18.5l-3.43 6h-6.56l3.42-6h-3.13z"/></svg>
+          </div>
+          <div style="flex-grow:1;min-width:200px;">
+            <div style="font-weight:700;font-size:14.5px;margin-bottom:3px;">Upload directly to your shared folder</div>
+            <div style="font-size:13px;color:var(--muted);">This opens your personal folder on Google Drive — drag in files there and we'll see them right away.</div>
+          </div>
+          <a href="#" id="driveFolderLink" target="_blank" rel="noopener" class="upload-btn" style="text-decoration:none;">
+            <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M5 1H1V13H13V9M9 1H13V5M13 1L6 8" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            Open Drive folder
+          </a>
+        </div>
+      </div>
+
       <div class="portal-body" style="align-items:stretch;">
 
         <div class="panel">
           <div class="panel-head">
-            <h2>Drop files for this week</h2>
+            <h2>Or upload here instead</h2>
             <span style="font-size:12px;color:var(--muted);">MP4, MOV, JPG, PNG · up to 2GB</span>
           </div>
           <div class="upload-zone" id="dropZone">
             <svg width="34" height="34" viewBox="0 0 34 34" fill="none"><path d="M17 5V22M17 5L11 11M17 5L23 11" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M5 22V26C5 27.6569 6.34315 29 8 29H26C27.6569 29 29 27.6569 29 26V22" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
             <h3>Drag footage here, or browse</h3>
-            <p>Files upload straight into your "Coach Maria — Raw Footage" folder on Google Drive.</p>
+            <p>Stored securely on wave.mgmnt — useful if you don't want to leave this page.</p>
             <button class="upload-btn" id="browseBtn">
               <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M1 7H13M13 7L7.5 1.5M13 7L7.5 12.5" stroke="currentColor" stroke-width="1.6"/></svg>
               Browse files
             </button>
             <input type="file" id="fileInput" multiple>
-            <div class="drive-status connected">
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M7.71 3.5L1.15 15l3.43 6h6.56l-6.57-11.5h3.14zM10.7 3.5l6.57 11.5H10.7l-3.42-6h6.85zM16.85 9.5L22 18.5l-3.43 6h-6.56l3.42-6h-3.13z"/></svg>
-              Connected to Google Drive — wavemgmnt.clients@gmail.com
-            </div>
           </div>
           <div class="file-list" id="fileList">
             <div class="file-row">
@@ -543,6 +560,7 @@
               </div>
               <svg class="file-check" width="18" height="18" viewBox="0 0 18 18" fill="none"><circle cx="9" cy="9" r="8" stroke="currentColor" stroke-width="1.5"/><path d="M5.5 9L8 11.5L12.5 6.5" stroke="currentColor" stroke-width="1.5"/></svg>
             </div>
+
             <div class="file-row">
               <div class="file-thumb"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><rect x="2" y="2" width="12" height="12" rx="1.5" stroke="currentColor" stroke-width="1.3"/><circle cx="6" cy="6.5" r="1" fill="currentColor"/><path d="M3 12L6.5 8.5L9 10.5L13 6.5" stroke="currentColor" stroke-width="1.3"/></svg></div>
               <div class="file-info">
@@ -619,7 +637,27 @@
     userAvatar.textContent = email.slice(0, 2).toUpperCase();
     currentUserId = session.user.id;
     loadCalendar();
+    loadDriveFolderLink();
     if (typeof loadUploadedFiles === 'function') loadUploadedFiles();
+  }
+
+  async function loadDriveFolderLink() {
+    const panel = document.getElementById('driveFolderPanel');
+    const link = document.getElementById('driveFolderLink');
+    if (!currentUserId) return;
+
+    const { data, error } = await sb
+      .from('clients')
+      .select('drive_folder_url')
+      .eq('id', currentUserId)
+      .single();
+
+    if (error || !data || !data.drive_folder_url) {
+      panel.style.display = 'none';
+      return;
+    }
+    link.href = data.drive_folder_url;
+    panel.style.display = 'block';
   }
 
   function showLogin() {
