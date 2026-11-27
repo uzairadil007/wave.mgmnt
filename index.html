@@ -8,7 +8,7 @@
 <meta name="theme-color" content="#FA7119">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Google+Sans:wght@400..700&family=Plus+Jakarta+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400..900&display=swap" rel="stylesheet">
 <style>
   :root{
     /* sampled from the reference */
@@ -40,7 +40,7 @@
   html{scroll-behavior:smooth;scroll-padding-top:90px;}
   body{
     background:var(--black);color:var(--white);
-    font-family:'Google Sans','Product Sans',system-ui,sans-serif;
+    font-family:'Inter',system-ui,-apple-system,'Segoe UI',sans-serif;
     font-size:17px;line-height:1.5;
     -webkit-font-smoothing:antialiased;
     overflow-x:hidden;
@@ -50,8 +50,14 @@
   button{font-family:inherit;cursor:pointer;}
   :focus-visible{outline:2px solid var(--white);outline-offset:3px;border-radius:8px;}
 
-  h1,h2,h3{font-weight:600;letter-spacing:-0.012em;line-height:1.12;}
-  .jakarta{font-family:'Plus Jakarta Sans','Google Sans',sans-serif;font-weight:500;letter-spacing:-0.02em;}
+  h1,h2,h3{font-weight:800;letter-spacing:-0.02em;line-height:1.08;}
+  h3{letter-spacing:-0.015em;}
+  /* Accent words: the slanted bold from the brand posts (Inter ExtraBold sheared 9.5deg) */
+  .it{display:inline-block;transform:skewX(-9.5deg);color:var(--orange);}
+  .hero .it,.cta .it{color:var(--black);}
+  .banner .it{color:#1D0705;}
+  .portal .it{color:var(--orange-warm);}
+  .jakarta{font-weight:600;letter-spacing:-0.02em;}
   .wrap{max-width:1320px;margin:0 auto;padding:0 var(--pad);}
   .section{padding:clamp(80px,10vw,136px) 0;}
 
@@ -80,10 +86,10 @@
     padding:.5em 1.25em;border-radius:999px;
     border:1px solid rgba(255,255,255,.8);
     background:rgba(1,0,8,.14);color:var(--white);
-    font-size:clamp(21px,2.9vw,34px);font-weight:400;line-height:1.3;
+    font-size:clamp(20px,2.7vw,32px);font-weight:400;line-height:1.3;letter-spacing:-0.01em;
     transition:background .25s,color .25s,transform .25s;
   }
-  .btn-line b{font-weight:700;}
+  .btn-line b{font-weight:800;letter-spacing:-0.02em;}
   .btn-line:hover{background:var(--white);color:var(--login);transform:translateY(-2px);}
   .btn-line.sm{font-size:17px;padding:.62em 1.5em;}
   .btn-white{
@@ -107,14 +113,14 @@
     transition:padding .3s;
   }
   header.scrolled .nav{padding-top:14px;padding-bottom:14px;}
-  .logo{display:inline-flex;align-items:center;gap:9px;font-weight:700;font-size:clamp(22px,2.4vw,27px);letter-spacing:-0.02em;white-space:nowrap;}
+  .logo{display:inline-flex;align-items:center;gap:9px;font-weight:800;font-size:clamp(21px,2.3vw,26px);letter-spacing:-0.035em;white-space:nowrap;}
   .logo svg{width:1.45em;height:1.45em;flex-shrink:0;}
   .nav-links{flex:1;display:flex;justify-content:space-evenly;align-items:center;}
-  .nav-links a{font-size:17px;opacity:.95;transition:opacity .2s;}
+  .nav-links a{font-size:16px;font-weight:500;opacity:.95;transition:opacity .2s;}
   .nav-links a:hover{opacity:.65;}
   .nav-login{
     background:var(--white);color:var(--login);
-    padding:6px 28px;border-radius:999px;font-weight:700;font-size:20px;
+    padding:8px 26px;border-radius:999px;font-weight:700;font-size:17px;letter-spacing:-0.01em;
     transition:transform .2s;
   }
   .nav-login:hover{transform:translateY(-2px);}
@@ -136,7 +142,7 @@
   /* ---------- Hero ---------- */
   .hero{
     overflow:hidden;
-    padding:clamp(170px,21.5vw,290px) 0 clamp(84px,9vw,128px);
+    padding:clamp(170px,17vw,230px) 0 clamp(84px,9vw,128px);
     background:
       linear-gradient(180deg,rgba(1,0,8,0) 0%,rgba(1,0,8,0) 54%,rgba(1,0,8,.07) 62%,rgba(1,0,8,.18) 69%,rgba(1,0,8,.31) 76%,rgba(1,0,8,.48) 82%,rgba(1,0,8,.67) 89%,rgba(1,0,8,.86) 96%,#010008 100%),
       radial-gradient(60% 75% at 104% 62%,rgba(147,36,9,.85) 0%,rgba(147,36,9,0) 70%),
@@ -144,17 +150,14 @@
       radial-gradient(75% 70% at 8% 48%,#FA8A2D 0%,rgba(250,138,45,0) 75%),
       #FA7119;
   }
-  .hero-figure{
-    right:clamp(-40px,14vw,270px);top:6%;height:92%;width:auto;
-    color:#1C0903;overflow:visible;
+  .hero-statue{
+    right:clamp(8px,4.5vw,84px);top:clamp(96px,11vw,150px);
+    height:min(78%,clamp(420px,56vw,720px));width:auto;
+    -webkit-mask-image:linear-gradient(180deg,#000 72%,rgba(0,0,0,0) 100%);mask-image:linear-gradient(180deg,#000 72%,rgba(0,0,0,0) 100%);
+    filter:drop-shadow(0 30px 40px rgba(83,34,7,.35));
   }
-  .hero-pole{
-    left:67%;top:11%;width:9px;height:76%;
-    transform:rotate(3.5deg);transform-origin:top center;filter:blur(3px);
-    background:linear-gradient(180deg,rgba(70,12,0,0),rgba(70,12,0,.5) 14%,rgba(40,6,0,.62) 80%,rgba(40,6,0,0));
-  }
-  .hero h1{font-size:clamp(42px,7.05vw,90px);margin-bottom:clamp(22px,3.4vw,44px);}
-  .hero-sub{font-size:clamp(17px,1.85vw,22px);line-height:1.28;max-width:31em;margin-bottom:clamp(40px,6.2vw,82px);font-weight:400;color:rgba(255,255,255,.93);}
+  .hero h1{font-size:clamp(42px,7vw,92px);line-height:1.04;letter-spacing:-0.025em;margin-bottom:clamp(22px,3vw,40px);}
+  .hero-sub{font-size:clamp(17px,1.85vw,22px);line-height:1.28;max-width:27em;margin-bottom:clamp(36px,5vw,64px);font-weight:400;color:rgba(255,255,255,.93);}
 
   /* ---------- Tilted reel cards ---------- */
   .reels{padding:clamp(8px,2vw,28px) var(--pad) 0;}
@@ -198,23 +201,31 @@
   }
   .banner-line{left:0;right:0;top:33.5%;height:5px;filter:blur(1.2px);
     background:linear-gradient(90deg,rgba(99,16,5,.75),rgba(164,72,33,.9) 30%,rgba(99,16,5,.95) 70%,rgba(99,16,5,.8));}
-  .banner-figure{right:clamp(-60px,4vw,90px);bottom:0;height:86%;width:auto;overflow:visible;}
+  .banner-figure{right:clamp(-40px,2vw,40px);top:5%;height:172%;width:auto;mix-blend-mode:multiply;
+    filter:drop-shadow(22px 0 16px rgba(181,69,4,.8)) drop-shadow(-12px 0 12px rgba(176,61,3,.55));}
   .banner-copy{max-width:680px;padding-bottom:clamp(40px,7vw,86px);}
-  .banner h2{font-size:clamp(44px,6.9vw,84px);line-height:1.16;margin-bottom:clamp(20px,3vw,40px);}
+  .banner h2{font-size:clamp(44px,6.9vw,88px);line-height:1.06;letter-spacing:-0.025em;margin-bottom:clamp(20px,3vw,40px);}
   .banner p{font-size:clamp(17px,1.85vw,21px);line-height:1.28;max-width:21em;color:rgba(255,255,255,.95);}
 
+  /* ---------- Greek key strip ---------- */
+  .meander{height:16px;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='22' height='16' viewBox='0 0 22 16'%3E%3Cpath d='M0 14.5H22M17 14.5V2.5H5V10.5H12.5V6.5H9' fill='none' stroke='white' stroke-width='1.4'/%3E%3C/svg%3E") repeat-x left center;opacity:.42;}
+  .meander.flip{transform:scaleY(-1);}
+
   /* ---------- Stats ---------- */
-  .stats{display:grid;grid-template-columns:repeat(3,1fr);border-top:1px solid var(--line);border-bottom:1px solid var(--line);}
-  .stat{padding:clamp(28px,4vw,48px) clamp(12px,3vw,40px);text-align:center;}
+  .stats{display:grid;grid-template-columns:repeat(3,1fr);}
+  .stat{padding:clamp(30px,4.4vw,56px) clamp(8px,2vw,32px);text-align:center;}
+  .laurels{display:inline-flex;align-items:center;gap:clamp(6px,1.2vw,16px);}
+  .laurels svg{height:clamp(56px,7.2vw,96px);width:auto;color:var(--orange);flex-shrink:0;}
+  .laurels svg:last-child{transform:scaleX(-1);}
   .stat + .stat{border-left:1px solid var(--line);}
-  .stat-num{font-size:clamp(44px,6.4vw,84px);font-weight:600;line-height:1;letter-spacing:-0.02em;}
+  .stat-num{font-size:clamp(40px,5.6vw,76px);font-weight:800;line-height:1;letter-spacing:-0.03em;}
   .stat-num span{color:var(--orange);}
   .stat-label{color:var(--mute);margin-top:10px;font-size:clamp(14px,1.5vw,18px);}
 
   /* ---------- Section heads ---------- */
   .head{margin-bottom:clamp(36px,5vw,64px);max-width:860px;}
   .head .pill-row{margin-bottom:22px;}
-  .head h2{font-size:clamp(36px,5.6vw,72px);}
+  .head h2{font-size:clamp(34px,5.2vw,68px);}
   .head p{color:var(--mute);font-size:clamp(17px,1.7vw,20px);margin-top:18px;max-width:34em;}
 
   /* ---------- Process ---------- */
@@ -233,7 +244,7 @@
   .step:hover::before{opacity:1;}
   .step .n{align-self:flex-start;}
   .step .n::before{content:'0' counter(s);}
-  .step h3{font-size:26px;margin:64px 0 10px;}
+  .step h3{font-size:24px;margin:64px 0 10px;}
   .step p{font-size:15.5px;line-height:1.4;color:var(--mute);transition:color .3s;}
   .step:hover p{color:rgba(255,255,255,.95);}
 
@@ -250,7 +261,7 @@
     border:1px solid rgba(250,113,25,.55);color:var(--orange);
     display:flex;align-items:center;justify-content:center;
   }
-  .tile h3{font-size:26px;margin:36px 0 8px;}
+  .tile h3{font-size:24px;margin:36px 0 8px;}
   .tile p{color:var(--mute);font-size:16px;line-height:1.4;}
   .tile.hot{
     border-color:transparent;
@@ -270,7 +281,7 @@
       linear-gradient(120deg,#150601 0%,#2B0E03 40%,#532207 100%);
   }
   .portal-grid{display:grid;grid-template-columns:1fr 1.05fr;gap:clamp(36px,5vw,72px);align-items:center;}
-  .portal h2{font-size:clamp(36px,5vw,64px);margin:22px 0 20px;}
+  .portal h2{font-size:clamp(34px,4.6vw,58px);margin:22px 0 20px;}
   .portal-grid > div > p{color:rgba(255,255,255,.82);font-size:clamp(17px,1.6vw,20px);line-height:1.35;max-width:26em;margin-bottom:28px;}
   .checks{display:flex;flex-direction:column;gap:14px;margin-bottom:38px;}
   .checks li{display:flex;gap:14px;align-items:flex-start;font-size:16.5px;line-height:1.35;color:rgba(255,255,255,.92);}
@@ -303,7 +314,7 @@
   .quote{text-align:center;max-width:980px;margin:0 auto;}
   .quote blockquote{font-size:clamp(24px,3.5vw,44px);line-height:1.22;margin:26px 0 34px;}
   .quote figcaption{color:var(--mute);font-size:17px;}
-  .quote figcaption b{color:var(--white);font-weight:600;}
+  .quote figcaption b{color:var(--white);font-weight:700;}
 
   /* ---------- Pricing ---------- */
   .prices{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;align-items:stretch;}
@@ -322,8 +333,8 @@
       #FA7119;
   }
   .price-top{display:flex;justify-content:space-between;align-items:center;gap:8px;margin-bottom:44px;min-height:32px;}
-  .price-tier{font-size:22px;font-weight:600;}
-  .price-amt{font-size:clamp(52px,5.8vw,76px);font-weight:600;letter-spacing:-0.03em;line-height:1;}
+  .price-tier{font-size:22px;font-weight:700;letter-spacing:-0.01em;}
+  .price-amt{font-size:clamp(48px,5.4vw,72px);font-weight:800;letter-spacing:-0.035em;line-height:1;}
   .price-amt small{font-size:17px;font-weight:400;letter-spacing:0;color:var(--mute);margin-left:6px;}
   .price.hot .price-amt small{color:rgba(255,255,255,.9);}
   .price-for{color:var(--mute);margin-top:10px;font-size:16px;}
@@ -346,12 +357,15 @@
       radial-gradient(75% 70% at 8% 48%,#FA8A2D 0%,rgba(250,138,45,0) 75%),
       #FA7119;
   }
+  .cta-col{bottom:-1px;height:88%;width:auto;color:rgba(255,255,255,.62);}
+  .cta-col.l{left:clamp(14px,3.4vw,48px);}
+  .cta-col.r{right:clamp(14px,3.4vw,48px);}
   .cta .pill-row{justify-content:center;margin-bottom:26px;}
-  .cta h2{font-size:clamp(42px,7.05vw,90px);margin-bottom:clamp(18px,2.4vw,30px);}
+  .cta h2{font-size:clamp(38px,6.4vw,84px);line-height:1.05;letter-spacing:-0.025em;margin-bottom:clamp(18px,2.4vw,30px);}
   .cta p{font-size:clamp(17px,1.85vw,22px);line-height:1.28;max-width:25em;margin:0 auto clamp(34px,4.6vw,56px);color:rgba(255,255,255,.95);}
 
   /* ---------- Footer ---------- */
-  footer{padding:clamp(64px,8vw,104px) 0 32px;}
+  footer{padding:clamp(56px,7vw,88px) 0 32px;}
   .foot{display:grid;grid-template-columns:1.5fr 1fr 1fr 1fr;gap:40px;margin-bottom:56px;}
   .foot .logo{margin-bottom:16px;}
   .foot p{color:var(--mute);max-width:19em;font-size:16px;line-height:1.4;}
@@ -378,13 +392,14 @@
   @media (max-width:860px){
     .nav-links,.nav-login{display:none;}
     .nav-toggle{display:flex;}
-    .hero-figure{right:-90px;opacity:.9;}
-    .hero-pole{left:82%;}
+    .hero{padding-top:clamp(300px,58vw,400px);}
+    .hero-statue{top:76px;right:clamp(4px,3vw,28px);height:clamp(216px,46vw,312px);-webkit-mask-image:none;mask-image:none;}
+    .cta-col{display:none;}
     .portal-grid{grid-template-columns:1fr;}
     .prices{grid-template-columns:1fr;}
     .price-top{margin-bottom:28px;}
     .foot{grid-template-columns:1fr 1fr;}
-    .banner-figure{height:62%;right:-70px;opacity:.9;}
+    .banner-figure{height:100%;top:8%;right:clamp(-90px,-14vw,-40px);-webkit-mask-image:linear-gradient(180deg,#000 26%,rgba(0,0,0,0) 45%);mask-image:linear-gradient(180deg,#000 26%,rgba(0,0,0,0) 45%);}
   }
   @media (max-width:600px){
     .steps,.tiles{grid-template-columns:1fr;}
@@ -408,56 +423,29 @@
 </head>
 <body id="top">
 
-<!-- Shared silhouettes + motion-blur filters (pure SVG, no image files) -->
+<!-- Shared symbols: logo mark, laurel branch, Ionic column -->
 <svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
   <defs>
-    <filter id="mb-xl" x="-90%" y="-20%" width="280%" height="140%"><feGaussianBlur stdDeviation="62 10"/></filter>
-    <filter id="mb-lg" x="-60%" y="-20%" width="220%" height="140%"><feGaussianBlur stdDeviation="24 7"/></filter>
-    <filter id="mb-md" x="-60%" y="-20%" width="220%" height="140%"><feGaussianBlur stdDeviation="9 2.5"/></filter>
-    <filter id="mb-streak" x="-100%" y="-20%" width="300%" height="140%"><feGaussianBlur stdDeviation="30 3"/></filter>
-    <filter id="soft" x="-20%" y="-20%" width="140%" height="140%"><feGaussianBlur stdDeviation="2.4"/></filter>
-    <filter id="soft-lg" x="-40%" y="-40%" width="180%" height="180%"><feGaussianBlur stdDeviation="9"/></filter>
-
-    <symbol id="fig-runner" viewBox="0 0 400 620" overflow="visible">
-      <g fill="currentColor" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
-        <ellipse cx="240" cy="64" rx="33" ry="39" stroke="none"/>
-        <circle cx="204" cy="50" r="19" stroke="none"/>
-        <path d="M206 100 Q268 104 276 174 L258 306 Q216 326 176 304 L170 200 Q170 126 206 100Z" stroke="none"/>
-        <path d="M256 150 L316 208" fill="none" stroke-width="36"/>
-        <path d="M316 208 L306 132" fill="none" stroke-width="28"/>
-        <circle cx="306" cy="124" r="18" stroke="none"/>
-        <path d="M190 150 L132 216" fill="none" stroke-width="34"/>
-        <path d="M132 216 L166 272" fill="none" stroke-width="27"/>
-        <path d="M238 306 L300 404" fill="none" stroke-width="58"/>
-        <path d="M300 404 L266 534" fill="none" stroke-width="42"/>
-        <path d="M266 534 L308 548" fill="none" stroke-width="28"/>
-        <path d="M200 306 L148 414" fill="none" stroke-width="56"/>
-        <path d="M148 414 L50 446" fill="none" stroke-width="40"/>
-        <path d="M50 446 L38 410" fill="none" stroke-width="26"/>
-      </g>
-    </symbol>
-
-    <symbol id="fig-bust" viewBox="0 0 400 520" overflow="visible">
-      <path fill="currentColor" d="M214 44 C292 44 318 108 312 170 C308 214 292 244 286 262 L288 300 C340 318 384 352 392 420 L400 520 L10 520 L22 430 C32 372 84 334 150 316 L152 284 C140 282 124 276 120 262 C116 250 122 240 116 232 C108 228 110 220 114 214 C104 210 92 204 96 196 C104 180 116 166 116 150 C112 96 150 44 214 44Z"/>
-    </symbol>
-
-    <symbol id="fig-stand" viewBox="0 0 300 640" overflow="visible">
-      <g fill="currentColor" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
-        <ellipse cx="150" cy="56" rx="30" ry="38" stroke="none"/>
-        <rect x="136" y="86" width="28" height="38" stroke="none"/>
-        <path d="M92 130 Q150 112 208 130 L196 250 L202 312 L198 460 L192 614 L160 614 L157 470 L150 344 L143 470 L140 614 L108 614 L102 460 L98 312 L104 250Z" stroke="none"/>
-        <path d="M98 138 L70 232 L102 282" fill="none" stroke-width="25"/>
-        <path d="M202 138 L230 238 L214 300" fill="none" stroke-width="25"/>
-      </g>
-    </symbol>
-
-    <symbol id="fig-bell" viewBox="0 0 300 340" overflow="visible">
-      <path d="M96 150 C70 62 110 30 150 30 C190 30 230 62 204 150" fill="none" stroke="currentColor" stroke-width="30" stroke-linecap="round"/>
-      <path fill="currentColor" d="M150 108 C240 108 282 180 268 250 C260 300 230 322 200 322 L100 322 C70 322 40 300 32 250 C18 180 60 108 150 108Z"/>
-    </symbol>
-
     <symbol id="logo-mark" viewBox="0 0 40 40">
       <path d="M3 24 C8 10 14 10 19 21 C23 30 28 31 37 13" fill="none" stroke="currentColor" stroke-width="5.5" stroke-linecap="round"/>
+    </symbol>
+    <symbol id="laurel" viewBox="0 0 46 96">
+      <path d="M32.5 81.4A36 36 0 0 1 32.5 14.6" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/>
+      <path d="M27.7 79.0Q28.3 71.4 22.2 66.7Q21.7 74.3 27.7 79.0ZM27.7 79.0Q22.3 75.2 16.7 78.7Q22.1 82.4 27.7 79.0ZM19.5 72.3Q22.2 65.2 17.8 58.9Q15.1 66.1 19.5 72.3ZM19.5 72.3Q15.4 67.1 9.0 68.8Q13.1 74.0 19.5 72.3ZM13.5 63.5Q18.2 57.5 15.9 50.2Q11.1 56.2 13.5 63.5ZM13.5 63.5Q11.2 57.4 4.6 57.1Q6.9 63.2 13.5 63.5ZM10.4 53.3Q16.7 48.9 16.5 41.3Q10.3 45.7 10.4 53.3ZM10.4 53.3Q9.9 46.8 3.8 44.6Q4.2 51.1 10.4 53.3ZM10.4 42.7Q17.7 40.3 19.8 33.0Q12.5 35.3 10.4 42.7ZM10.4 42.7Q11.9 36.3 6.6 32.4Q5.1 38.8 10.4 42.7ZM13.5 32.5Q21.2 32.4 25.3 26.0Q17.7 26.1 13.5 32.5ZM13.5 32.5Q16.8 26.8 12.9 21.5Q9.6 27.2 13.5 32.5ZM19.5 23.7Q26.8 25.8 32.7 20.9Q25.3 18.8 19.5 23.7ZM19.5 23.7Q24.3 19.2 22.1 13.0Q17.3 17.5 19.5 23.7ZM27.7 17.0Q34.1 21.2 41.2 18.2Q34.8 14.0 27.7 17.0ZM27.7 17.0Q33.6 14.1 33.4 7.5Q27.5 10.4 27.7 17.0Z" fill="currentColor"/>
+    </symbol>
+    <symbol id="column" viewBox="0 0 80 400">
+      <g fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round">
+        <rect x="6" y="1" width="68" height="8"/>
+        <path d="M11 9H69V20H11Z"/>
+        <circle cx="11" cy="22" r="10"/><circle cx="11" cy="22" r="5.5"/><circle cx="11" cy="22" r="1.6"/>
+        <circle cx="69" cy="22" r="10"/><circle cx="69" cy="22" r="5.5"/><circle cx="69" cy="22" r="1.6"/>
+        <rect x="18" y="32" width="44" height="6"/>
+        <path d="M19 38H61L65 362H15Z"/>
+        <path d="M27.4 38L25 362M35.8 38L35 362M44.2 38L45 362M52.6 38L55 362"/>
+        <rect x="11" y="362" width="58" height="8" rx="4"/>
+        <rect x="7" y="370" width="66" height="9" rx="4.5"/>
+        <rect x="2" y="379" width="76" height="14"/>
+      </g>
     </symbol>
   </defs>
 </svg>
@@ -489,13 +477,9 @@
 
   <!-- HERO -->
   <section class="hero grain">
-    <svg class="art hero-figure" viewBox="0 0 400 620" aria-hidden="true">
-      <g filter="url(#mb-xl)" opacity=".55" transform="translate(-96 0)"><use href="#fig-runner"/></g>
-      <g filter="url(#mb-lg)" opacity=".88"><use href="#fig-runner"/></g>
-    </svg>
-    <span class="art hero-pole" aria-hidden="true"></span>
+    <img class="art hero-statue" src="images/thinker.svg" alt="" width="596" height="806">
     <div class="wrap">
-      <h1>Train Clients.<br>We Handle the Feed.</h1>
+      <h1>Train Clients.<br>We Handle<br><span class="it">the</span> <span class="it">Feed.</span></h1>
       <p class="hero-sub">wave.mgmnt runs content, captions, and posting for personal trainers, coaches, and gyms — so your socials grow while you're busy actually coaching.</p>
       <a href="#pricing" class="btn-line">Grow With <b>wave.mgmnt</b></a>
     </div>
@@ -524,14 +508,10 @@
   <section class="banner-wrap">
     <div class="banner grain reveal">
       <span class="art banner-line" aria-hidden="true"></span>
-      <svg class="art banner-figure" viewBox="0 0 400 520" aria-hidden="true">
-        <g filter="url(#mb-streak)" opacity=".85" transform="translate(34 0)" style="color:#B54504"><use href="#fig-bust"/></g>
-        <g filter="url(#soft-lg)" opacity=".9" transform="translate(-14 0)" style="color:#B03D03"><use href="#fig-bust"/></g>
-        <g filter="url(#soft)" style="color:#190705"><use href="#fig-bust"/></g>
-      </svg>
+      <img class="art banner-figure" src="images/thinker.svg" alt="" width="596" height="806">
       <div class="pill-row"><span class="pill">Fitness only</span><span class="pill solid">No templates</span></div>
       <div class="banner-copy">
-        <h2>We Train<br>Your Feed.</h2>
+        <h2>We Train<br><span class="it">Your</span> <span class="it">Feed.</span></h2>
         <p>Every strategist here works only with trainers, coaches, and studios — so the content sounds like you, not a template with your logo on it.</p>
       </div>
     </div>
@@ -540,11 +520,13 @@
   <!-- STATS -->
   <section class="section" style="padding-bottom:0;">
     <div class="wrap">
+      <div class="meander" aria-hidden="true"></div>
       <div class="stats reveal">
-        <div class="stat"><div class="stat-num">120<span>+</span></div><div class="stat-label">Fitness brands managed</div></div>
-        <div class="stat"><div class="stat-num">4.8<span>x</span></div><div class="stat-label">Avg. engagement lift</div></div>
-        <div class="stat"><div class="stat-num">48<span>hr</span></div><div class="stat-label">Turnaround on edits</div></div>
+        <div class="stat"><div class="laurels"><svg viewBox="0 0 46 96" aria-hidden="true"><use href="#laurel"/></svg><div class="stat-num">120<span>+</span></div><svg viewBox="0 0 46 96" aria-hidden="true"><use href="#laurel"/></svg></div><div class="stat-label">Fitness brands managed</div></div>
+        <div class="stat"><div class="laurels"><svg viewBox="0 0 46 96" aria-hidden="true"><use href="#laurel"/></svg><div class="stat-num">4.8<span>x</span></div><svg viewBox="0 0 46 96" aria-hidden="true"><use href="#laurel"/></svg></div><div class="stat-label">Avg. engagement lift</div></div>
+        <div class="stat"><div class="laurels"><svg viewBox="0 0 46 96" aria-hidden="true"><use href="#laurel"/></svg><div class="stat-num">48<span>hr</span></div><svg viewBox="0 0 46 96" aria-hidden="true"><use href="#laurel"/></svg></div><div class="stat-label">Turnaround on edits</div></div>
       </div>
+      <div class="meander flip" aria-hidden="true"></div>
     </div>
   </section>
 
@@ -553,7 +535,7 @@
     <div class="wrap">
       <div class="head reveal">
         <div class="pill-row"><span class="pill sm">How it runs, every week</span></div>
-        <h2>From Your Camera Roll to a Finished Feed.</h2>
+        <h2>From Your Camera Roll to a <span class="it">Finished</span> <span class="it">Feed.</span></h2>
       </div>
       <div class="steps reveal">
         <div class="step grain"><span class="pill sm n"></span><h3>You upload</h3><p>Drop raw clips, gym footage, or client testimonials straight into your portal — synced to your own Google Drive folder.</p></div>
@@ -570,7 +552,7 @@
     <div class="wrap">
       <div class="head reveal">
         <div class="pill-row"><span class="pill sm">What's included</span></div>
-        <h2>Everything Your Feed Needs.</h2>
+        <h2>Everything Your <span class="it">Feed</span> <span class="it">Needs.</span></h2>
       </div>
       <div class="tiles reveal">
         <div class="tile hot grain">
@@ -613,7 +595,7 @@
       <div class="portal-grid reveal">
         <div>
           <div class="pill-row"><span class="pill sm">Your client portal</span></div>
-          <h2>One Link. Your Whole Calendar.</h2>
+          <h2>One Link. Your <span class="it">Whole</span> <span class="it">Calendar.</span></h2>
           <p>No email attachments, no "did you get my files" texts. Everything you need lives in one clean dashboard built around how trainers actually work.</p>
           <ul class="checks">
             <li><i><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2.5 6L5 8.5L9.5 3.5" stroke="currentColor" stroke-width="1.5"/></svg></i>See your full content calendar, updated live as posts get scheduled.</li>
@@ -661,7 +643,7 @@
     <div class="wrap">
       <div class="head reveal">
         <div class="pill-row"><span class="pill sm">Pricing</span></div>
-        <h2>Pick Your Pace.</h2>
+        <h2>Pick Your <span class="it">Pace.</span></h2>
       </div>
       <div class="prices reveal">
         <div class="price">
@@ -706,9 +688,11 @@
   <!-- FINAL CTA -->
   <section class="cta-wrap">
     <div class="cta grain">
+      <svg class="art cta-col l" viewBox="0 0 80 400" aria-hidden="true"><use href="#column"/></svg>
+      <svg class="art cta-col r" viewBox="0 0 80 400" aria-hidden="true"><use href="#column"/></svg>
       <div class="reveal">
         <div class="pill-row"><span class="pill sm">Ready when you are</span></div>
-        <h2>Stop Posting Like<br>It's a Side Quest.</h2>
+        <h2>Stop Posting Like<br><span class="it">It's</span> <span class="it">a</span> <span class="it">Side</span> <span class="it">Quest.</span></h2>
         <p>Book a free 20-minute audit of your current socials — we'll tell you exactly what's working and what isn't.</p>
         <a href="mailto:hello@wavemgmnt.com?subject=Free%20social%20audit" class="btn-line">Book Your <b>Free Audit</b></a>
       </div>
@@ -719,6 +703,7 @@
 
 <footer>
   <div class="wrap">
+    <div class="meander" aria-hidden="true" style="margin-bottom:clamp(40px,5vw,64px);"></div>
     <div class="foot">
       <div>
         <a href="#top" class="logo"><svg aria-hidden="true"><use href="#logo-mark"/></svg>wave.mgmnt</a>
