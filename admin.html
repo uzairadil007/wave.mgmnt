@@ -9,18 +9,18 @@
 <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400..900&display=swap" rel="stylesheet">
 <style>
   :root{
-    /* sampled from the reference */
-    --bg:#010008;
-    --panel:#0A0911;
-    --white:#FFFFFF;
-    --ink:#FFFFFF;
-    --accent:#FA7119;
-    --orange-warm:#FA8A2D;
-    --login:#E4521F;
-    --accent-soft:rgba(250,113,25,.16);
-    --tint:rgba(255,255,255,.06);
-    --line:rgba(255,255,255,.13);
-    --muted:rgba(255,255,255,.64);
+    /* Brand palette: Charcoal / Japanese Indigo / Steel Teal / Mid Grey / Star Dust */
+    --bg:#000000;
+    --panel:#111111;
+    --white:#FFFAF8;
+    --ink:#FFFAF8;
+    --indigo:#0D4659;
+    --accent:#6C9BAD;
+    --login:#224D5F;
+    --accent-soft:rgba(108,155,173,.16);
+    --tint:rgba(255,250,248,.06);
+    --line:#2C2C2C;
+    --muted:#AAAAAA;
     --noise:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='.33 .33 .33 0 0 .33 .33 .33 0 0 .33 .33 .33 0 0 0 0 0 0 1'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
   }
   *{margin:0;padding:0;box-sizing:border-box;}
@@ -57,7 +57,7 @@
     padding:13px;font-weight:700;font-size:14px;letter-spacing:0.02em;
     transition:background .2s;
   }
-  .login-btn:hover{background:#FA8A2D;}
+  .login-btn:hover{background:#285C70;}
   .login-btn:disabled{opacity:0.6;cursor:not-allowed;}
   .login-msg{margin-top:16px;font-size:13px;text-align:center;color:var(--muted);min-height:18px;}
   .login-msg.error{color:#FF8A70;}
@@ -118,7 +118,7 @@
     display:inline-flex;align-items:center;gap:8px;
     transition:background .2s;
   }
-  .submit-btn:hover{background:#FA8A2D;}
+  .submit-btn:hover{background:#285C70;}
   .submit-btn:disabled{opacity:0.6;cursor:not-allowed;}
 
   .form-msg{margin-top:14px;font-size:13.5px;min-height:18px;}
@@ -173,18 +173,18 @@
   #loginScreen{
     position:relative;isolation:isolate;
     background:
-      linear-gradient(180deg,rgba(1,0,8,0) 0%,rgba(1,0,8,0) 50%,rgba(1,0,8,.31) 74%,rgba(1,0,8,.67) 88%,#010008 100%),
-      radial-gradient(60% 75% at 104% 62%,rgba(147,36,9,.85) 0%,rgba(147,36,9,0) 70%),
-      radial-gradient(70% 95% at 100% 8%,#FC530E 0%,rgba(246,64,9,.9) 35%,rgba(246,64,9,0) 72%),
-      radial-gradient(75% 70% at 8% 48%,#FA8A2D 0%,rgba(250,138,45,0) 75%),
-      #FA7119;
+      linear-gradient(180deg,rgba(0,0,0,0) 0%,rgba(0,0,0,0) 50%,rgba(0,0,0,.31) 74%,rgba(0,0,0,.67) 88%,#000000 100%),
+      radial-gradient(60% 75% at 104% 62%,rgba(22,48,61,.9) 0%,rgba(22,48,61,0) 70%),
+      radial-gradient(70% 95% at 100% 8%,#4E8194 0%,rgba(78,129,148,.75) 30%,rgba(78,129,148,0) 72%),
+      radial-gradient(75% 70% at 8% 48%,#285C70 0%,rgba(40,92,112,0) 75%),
+      #0D4659;
   }
   #loginScreen::after{
     content:'';position:absolute;inset:0;z-index:-1;pointer-events:none;
     background-image:var(--noise);opacity:.34;mix-blend-mode:overlay;
   }
   .login-box{
-    background:rgba(1,0,8,.6);border:1px solid rgba(255,255,255,.2);border-radius:28px;
+    background:rgba(0,0,0,.6);border:1px solid rgba(255,255,255,.2);border-radius:28px;
     padding:44px 36px;backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);
     box-shadow:0 40px 80px -30px rgba(0,0,0,.8);
   }
@@ -196,9 +196,9 @@
   .login-btn{background:var(--white);color:var(--login);border-radius:999px;font-size:17px;padding:12px;letter-spacing:0;transition:transform .2s,background .2s;}
   .login-btn:hover{background:var(--white);transform:translateY(-2px);}
   .login-msg.error,.form-msg.error{color:#FF8A70;}
-  .login-msg.success,.form-msg.success{color:var(--orange-warm);}
+  .login-msg.success,.form-msg.success{color:var(--accent);}
 
-  .topbar{background:rgba(1,0,8,.8);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);position:sticky;top:0;z-index:20;}
+  .topbar{background:rgba(0,0,0,.8);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);position:sticky;top:0;z-index:20;}
   .logo{font-size:22px;}
   .wrap h1{font-size:clamp(30px,3.6vw,44px) !important;}
   .form-panel{background:var(--panel);border-radius:24px;}
