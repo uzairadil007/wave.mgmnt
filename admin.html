@@ -6,7 +6,7 @@
 <title>Admin — wave.mgmnt</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400..900&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400..900&family=JetBrains+Mono:wght@400..700&family=Orbitron:wght@900&display=swap" rel="stylesheet">
 <style>
   :root{
     /* Brand palette: Charcoal / Japanese Indigo / Steel Teal / Mid Grey / Star Dust */
@@ -226,6 +226,39 @@
     table{font-size:12.5px;}
     th,td{padding-left:6px;padding-right:6px;}
   }
+  /* ================= Grid skin: square corners, mono labels, cut-corner buttons ================= */
+  *,*::before,*::after{border-radius:0 !important;}
+  :root{--panel:#0D0D0D;--mono:'JetBrains Mono',ui-monospace,Menlo,Consolas,monospace;--display:'Orbitron','JetBrains Mono',monospace;--cut:10px;}
+  .login-label,.login-sub,.login-msg,.pill,.status-tag,th,.form-row label,.form-msg,.stat-box .label,.cal-weekdays span,.cal-post-tag,.legend-item,.post-body .pdate,.platform-tag,.file-info .fmeta,.drive-status,.drive-status-pill,.back-link,.logout-link,.month-label,.side-link,.topbar-right a,.panel-mini-head a{font-family:var(--mono);}
+  .login-label,.form-row label,th,.stat-box .label,.cal-weekdays span{text-transform:uppercase !important;letter-spacing:.07em !important;font-size:10.5px !important;font-weight:500 !important;}
+  .login-btn,.btn-primary,.submit-btn,.upload-btn,.connect-drive-btn,.post-actions .approve{
+    font-family:var(--mono);text-transform:uppercase;letter-spacing:.08em;font-size:11.5px;font-weight:700;
+    background:var(--accent);color:#000;border-color:transparent;
+    clip-path:polygon(0 0,100% 0,100% calc(100% - var(--cut)),calc(100% - var(--cut)) 100%,0 100%);
+  }
+  .login-btn:hover,.btn-primary:hover,.submit-btn:hover,.upload-btn:hover,.connect-drive-btn:hover,.post-actions .approve:hover{background:var(--white);color:#000;transform:none;}
+  .btn-outline,.recent-head button,.post-actions button:not(.approve){font-family:var(--mono);text-transform:uppercase;letter-spacing:.06em;font-size:11px;font-weight:500;border-color:#4A4A4A;}
+  #loginScreen{
+    background:
+      radial-gradient(48% 46% at 50% 44%,rgba(13,70,89,.85),rgba(13,70,89,0)),
+      linear-gradient(#1B1B1B,#1B1B1B) 25% 0/1px 100% no-repeat,
+      linear-gradient(#1B1B1B,#1B1B1B) 50% 0/1px 100% no-repeat,
+      linear-gradient(#1B1B1B,#1B1B1B) 75% 0/1px 100% no-repeat,
+      #000;
+  }
+  #loginScreen::after{display:none;}
+  .login-box{background:rgba(8,8,8,.92);border:1px solid var(--line);box-shadow:none;backdrop-filter:none;-webkit-backdrop-filter:none;padding:40px 30px 32px;}
+  .login-logo{font-size:26px;}
+  .login-sub{font-size:11.5px;letter-spacing:.05em;text-transform:uppercase;color:var(--muted);}
+  .login-input{background:#000;border-color:var(--line);font-family:var(--mono);font-size:13px;}
+  .login-input:focus{border-color:var(--accent);}
+  .login-btn{padding:14px;}
+  .topbar{background:rgba(0,0,0,.9);}
+  .wrap h1{font-family:'Inter',sans-serif;}
+  .form-panel{background:var(--panel);}
+  .form-input,.form-select,.form-textarea{background:#000;border-color:var(--line);font-family:var(--mono);font-size:13px;}
+  .form-input:focus,.form-select:focus,.form-textarea:focus{border-color:var(--accent);}
+  .drive-status-pill{border:1px solid var(--line);}
 </style>
 </head>
 <body>
