@@ -8,7 +8,7 @@
 <meta name="theme-color" content="#000000">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="preload" as="image" href="images/thinker-sm.webp" imagesrcset="images/thinker-sm.webp 488w, images/thinker.webp 917w" imagesizes="(max-width:899px) 60vw, 24vw" fetchpriority="high">
+<link rel="preload" as="image" href="images/thinker-sm.webp" imagesrcset="images/thinker-sm.webp 488w, images/thinker.webp 917w" imagesizes="(max-width:899px) 60vw, 30vw" fetchpriority="high">
 <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400..900&family=JetBrains+Mono:wght@400..700&family=Orbitron:wght@900&display=swap" rel="stylesheet">
 <script>document.documentElement.classList.add('js');</script>
 <style>
@@ -257,21 +257,6 @@
   .js .hero-note > :nth-child(4){animation-delay:.5s;}
   @keyframes rise{from{opacity:0;transform:translateY(16px);}}
 
-  /* featured card (light) */
-  .feature{position:relative;order:-2;display:flex;flex-direction:column;background:var(--stardust);color:#111;--line:#CBC5C2;--mute:#5F5B59;--panel:#F7F1EE;}
-  .feature .tags{position:absolute;left:0;top:0;}
-  .feature .tag{border-top:0;border-left:0;color:#333;}
-  .feature .tag.hot{background:var(--indigo);border-color:var(--indigo);color:var(--white);}
-  .feature-body{flex:1;display:grid;gap:14px;align-content:center;padding:52px var(--pad) 26px;}
-  .feature-logo{display:flex;align-items:center;gap:10px;font-family:var(--sans);font-weight:800;font-size:26px;letter-spacing:-0.035em;}
-  .feature-logo svg{width:34px;height:34px;flex:none;color:var(--indigo);}
-  .feature-body p{font-family:var(--sans);font-weight:600;font-size:clamp(18px,4.9vw,21px);letter-spacing:-0.02em;line-height:1.28;color:#111;max-width:24em;}
-  .feature .cells{grid-template-columns:1fr 1fr 1fr 56px;}
-  .feature .cell b{font-size:17px;}
-  .feature .go{color:#111;}
-  @media (hover:hover){.feature a.go:hover{background:var(--indigo);color:var(--white);}}
-  .feature a.go:active{background:var(--indigo);color:var(--white);}
-
   @media (min-width:900px){
     .giant{
       display:flex;gap:.42em;white-space:nowrap;
@@ -281,20 +266,14 @@
       font-size:calc((min(100vw - 2 * var(--gut),1320px) - 2 * var(--pad) - 4px) / 10.45);
       padding:34px var(--pad) 26px;
     }
-    .hero-grid{grid-template-columns:1fr 1fr 2fr;min-height:400px;}
-    .hero-art{order:0;height:auto;border-bottom:0;border-left:1px solid var(--line);border-right:1px solid var(--line);}
+    .hero-grid{grid-template-columns:1fr 1fr;min-height:430px;}
+    .hero-art{order:0;height:auto;border-bottom:0;border-left:1px solid var(--line);}
     .hero-note{display:flex;flex-direction:column;padding-bottom:0;}
-    .feature{order:0;}
-    .lede{font-size:clamp(30px,3.1vw,42px);}
-    .hero-sub{font-size:12.5px;}
+    .lede{font-size:clamp(40px,4.6vw,62px);margin:18px 0 18px;}
+    .hero-sub{font-size:13.5px;max-width:38em;margin-bottom:26px;}
     .hero-note .btn{align-self:flex-start;}
     .counter{display:block;margin:auto calc(-1 * var(--pad)) 0;padding:16px var(--pad) 18px;border-top:1px solid var(--line);}
     .counter .num{display:block;font-size:34px;margin-top:10px;}
-    .feature-body{gap:18px;padding:60px var(--pad) 30px;}
-    .feature-logo{font-size:30px;}
-    .feature-logo svg{width:40px;height:40px;}
-    .feature-body p{font-size:clamp(20px,2vw,26px);}
-    .feature .cells{grid-template-columns:1fr 1fr 1fr 64px;}
   }
 
   /* ---------- Bars (section header strips) ---------- */
@@ -574,29 +553,16 @@
     <h1 class="giant" aria-label="Train clients. We handle the feed."><span><b>Train<i>_</i></b></span><span><b>C<span class="k">l</span>ients</b></span></h1>
     <div class="hero-grid">
       <div class="hero-note">
-        <span class="label">What we do</span>
+        <span class="label">Social media for fitness pros</span>
         <p class="lede">We Handle <span class="it">the</span> <span class="it">Feed.</span></p>
-        <p class="hero-sub">We run your content, captions, and posting — so your socials grow while you're busy actually coaching.</p>
+        <p class="hero-sub">wave.mgmnt runs content, captions, and posting for personal trainers, coaches, and gyms — so your socials grow while you're busy actually coaching.</p>
         <a href="#pricing" class="btn">Grow with wave.mgmnt <svg aria-hidden="true"><use href="#arrow"/></svg></a>
         <div class="counter"><span class="label">Creators</span><span class="num">04</span></div>
       </div>
       <div class="hero-art brk">
         <span class="target" aria-hidden="true"></span>
-        <div class="statue"><img src="images/thinker.webp" srcset="images/thinker-sm.webp 488w, images/thinker.webp 917w" sizes="(max-width:899px) 60vw, 24vw" width="917" height="1240" alt="" fetchpriority="high"></div>
+        <div class="statue"><img src="images/thinker.webp" srcset="images/thinker-sm.webp 488w, images/thinker.webp 917w" sizes="(max-width:899px) 60vw, 30vw" width="917" height="1240" alt="" fetchpriority="high"></div>
         <span class="fig">Fig. 01 — The Thinker</span>
-      </div>
-      <div class="feature">
-        <div class="tags"><span class="tag hot">Fitness only</span><span class="tag">Free audit</span></div>
-        <div class="feature-body">
-          <div class="feature-logo"><svg aria-hidden="true"><use href="#logo-mark"/></svg>wave.mgmnt</div>
-          <p>Social media management built exclusively for personal trainers, coaches, and gyms.</p>
-        </div>
-        <div class="cells">
-          <div class="cell"><b>20 min</b><span>Audit call</span></div>
-          <div class="cell"><b>$0</b><span>Cost</span></div>
-          <div class="cell"><b>48hr</b><span>Edit turnaround</span></div>
-          <a class="cell go" href="mailto:hello@wavemgmnt.com?subject=Free%20social%20audit" aria-label="Book your free audit"><svg aria-hidden="true"><use href="#arrow"/></svg></a>
-        </div>
       </div>
     </div>
   </section>
