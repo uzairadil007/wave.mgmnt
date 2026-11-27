@@ -6,23 +6,29 @@
 <title>Client Portal — wave.mgmnt</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Google+Sans:wght@400..700&display=swap" rel="stylesheet">
 <style>
   :root{
+    /* sampled from the reference */
+    --bg:#010008;
+    --panel:#0A0911;
     --white:#FFFFFF;
-    --ink:#0E1410;
-    --accent:#034750;
-    --accent-soft:#E2EDEC;
-    --tint:#F5F6F3;
-    --line:#E4E6E1;
-    --muted:#5C6358;
+    --ink:#FFFFFF;
+    --accent:#FA7119;
+    --orange-warm:#FA8A2D;
+    --login:#E4521F;
+    --accent-soft:rgba(250,113,25,.16);
+    --tint:rgba(255,255,255,.06);
+    --line:rgba(255,255,255,.13);
+    --muted:rgba(255,255,255,.64);
+    --noise:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='.33 .33 .33 0 0 .33 .33 .33 0 0 .33 .33 .33 0 0 0 0 0 0 1'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
   }
   *{margin:0;padding:0;box-sizing:border-box;}
   body{
-    background:var(--white);color:var(--ink);
-    font-family:'Inter',sans-serif;-webkit-font-smoothing:antialiased;
+    background:var(--bg);color:var(--ink);
+    font-family:'Google Sans',sans-serif;-webkit-font-smoothing:antialiased;
   }
-  .display{font-family:'Archivo Black',sans-serif;text-transform:uppercase;letter-spacing:-0.01em;line-height:0.95;}
+  .display{font-family:'Google Sans',sans-serif;font-weight:600;letter-spacing:-0.012em;line-height:1.12;}
   a{color:inherit;text-decoration:none;}
   button{font-family:inherit;cursor:pointer;}
 
@@ -35,7 +41,7 @@
     padding:28px 22px;
     display:flex;flex-direction:column;
   }
-  .logo{font-family:'Archivo Black',sans-serif;font-size:18px;margin-bottom:40px;}
+  .logo{font-family:'Google Sans',sans-serif;font-weight:700;font-size:18px;margin-bottom:40px;}
   .logo .dot{color:var(--accent);}
   .side-nav{display:flex;flex-direction:column;gap:4px;flex-grow:1;}
   .side-link{
@@ -80,7 +86,7 @@
     display:inline-flex;align-items:center;gap:8px;
     transition:background .2s;
   }
-  .btn-primary:hover{background:#022F36;}
+  .btn-primary:hover{background:#FA8A2D;}
   .btn-outline{
     border:1px solid var(--line);background:transparent;
     padding:11px 18px;border-radius:4px;font-weight:600;font-size:13.5px;
@@ -107,10 +113,10 @@
 
   /* ---------- Stat row ---------- */
   .stat-row{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--line);border:1px solid var(--line);margin-bottom:40px;}
-  .stat-box{background:var(--white);padding:22px 24px;}
+  .stat-box{background:var(--panel);padding:22px 24px;}
   .stat-box .label{font-size:12px;color:var(--muted);text-transform:uppercase;letter-spacing:0.04em;margin-bottom:8px;}
-  .stat-box .value{font-family:'Archivo Black',sans-serif;font-size:28px;}
-  .stat-box .value span{color:var(--accent);font-size:16px;font-family:'Inter';font-weight:700;margin-left:4px;}
+  .stat-box .value{font-family:'Google Sans',sans-serif;font-weight:700;font-size:28px;}
+  .stat-box .value span{color:var(--accent);font-size:16px;font-family:'Google Sans';font-weight:700;margin-left:4px;}
 
   /* ---------- Two-col body ---------- */
   .portal-body{display:grid;grid-template-columns:1.6fr 1fr;gap:32px;align-items:start;}
@@ -124,7 +130,7 @@
   .panel-head .nav-arrows{display:flex;gap:6px;align-items:center;}
   .icon-btn{
     width:30px;height:30px;border:1px solid var(--line);border-radius:4px;
-    display:flex;align-items:center;justify-content:center;background:white;
+    display:flex;align-items:center;justify-content:center;background:var(--panel);
     color:var(--muted);transition:background .15s;
   }
   .icon-btn:hover{background:var(--tint);color:var(--ink);}
@@ -153,7 +159,7 @@
     font-size:9.5px;font-weight:700;padding:3px 5px;border-radius:3px;
     white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
   }
-  .cal-post-tag.ig{background:#FCE7E0;color:#B5472B;}
+  .cal-post-tag.ig{background:#FCE7E0;color:#FF8A70;}
   .cal-post-tag.tk{background:#E4E9EF;color:#1C2733;}
   .cal-post-tag.yt{background:#FBE3E3;color:#C12B2B;}
   .cal-post-tag.review{background:#FFF4E0;color:#9A6B00;}
@@ -222,7 +228,7 @@
   .post-thumb .platform-tag{
     position:absolute;top:10px;left:10px;
     font-size:10.5px;font-weight:800;text-transform:uppercase;
-    background:white;padding:3px 8px;border-radius:20px;color:var(--ink);
+    background:var(--panel);padding:3px 8px;border-radius:20px;color:var(--ink);
   }
   .post-body{padding:14px 16px;}
   .post-body .pdate{font-size:11.5px;color:var(--muted);margin-bottom:6px;}
@@ -230,10 +236,10 @@
   .post-actions{display:flex;gap:8px;}
   .post-actions button{
     flex:1;padding:8px;border-radius:4px;font-size:12.5px;font-weight:700;
-    border:1px solid var(--line);background:white;
+    border:1px solid var(--line);background:var(--panel);
   }
   .post-actions .approve{background:var(--accent);color:white;border-color:var(--accent);}
-  .post-actions .approve:hover{background:#022F36;}
+  .post-actions .approve:hover{background:#FA8A2D;}
   .post-actions button:not(.approve):hover{background:var(--tint);}
 
   .panel-mini-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:14px;}
@@ -265,13 +271,13 @@
     border:1px solid var(--line);border-radius:8px;
     padding:40px 36px;
   }
-  .login-logo{font-family:'Archivo Black',sans-serif;font-size:22px;text-align:center;margin-bottom:8px;}
+  .login-logo{font-family:'Google Sans',sans-serif;font-weight:700;font-size:22px;text-align:center;margin-bottom:8px;}
   .login-logo .dot{color:var(--accent);}
   .login-sub{text-align:center;font-size:14px;color:var(--muted);margin-bottom:32px;}
   .login-label{font-size:12.5px;font-weight:700;text-transform:uppercase;letter-spacing:0.04em;color:var(--muted);margin-bottom:8px;display:block;}
   .login-input{
     width:100%;padding:13px 14px;border:1px solid var(--line);border-radius:5px;
-    font-size:14px;font-family:'Inter',sans-serif;margin-bottom:18px;
+    font-size:14px;font-family:'Google Sans',sans-serif;margin-bottom:18px;
     transition:border-color .2s;
   }
   .login-input:focus{outline:none;border-color:var(--accent);}
@@ -280,24 +286,24 @@
     padding:13px;font-weight:700;font-size:14px;letter-spacing:0.02em;
     transition:background .2s;
   }
-  .login-btn:hover{background:#022F36;}
+  .login-btn:hover{background:#FA8A2D;}
   .login-btn:disabled{opacity:0.6;cursor:not-allowed;}
   .login-msg{
     margin-top:16px;font-size:13px;text-align:center;color:var(--muted);
     min-height:18px;
   }
-  .login-msg.error{color:#B5472B;}
+  .login-msg.error{color:#FF8A70;}
   .login-msg.success{color:var(--accent);}
   #appScreen{display:none;}
 
   /* ---------- Post detail modal ---------- */
   .post-modal-overlay{
     display:none;position:fixed;inset:0;z-index:200;
-    background:rgba(14,20,16,0.45);
+    background:rgba(1,0,8,.72);
     align-items:center;justify-content:center;padding:20px;
   }
   .post-modal-box{
-    background:white;border-radius:8px;max-width:440px;width:100%;
+    background:var(--panel);border-radius:8px;max-width:440px;width:100%;
     max-height:80vh;overflow-y:auto;
     box-shadow:0 20px 60px rgba(0,0,0,0.2);
   }
@@ -323,7 +329,99 @@
     font-size:13px;color:var(--muted);display:flex;align-items:center;gap:8px;
     margin-top:10px;cursor:pointer;
   }
-  .logout-link:hover{color:#B5472B;}
+  .logout-link:hover{color:#FF8A70;}
+  /* ================= Redesign skin: Google Sans, orange grain on near-black ================= */
+  :root{color-scheme:dark;}
+  body{font-size:15px;}
+  input,select,textarea{color:var(--ink);}
+  ::placeholder{color:rgba(255,255,255,.4);}
+  :focus-visible{outline:2px solid #fff;outline-offset:2px;}
+  .logo,.login-logo{letter-spacing:-0.02em;}
+  .logo .dot,.login-logo .dot{color:inherit;}
+
+  #loginScreen{
+    position:relative;isolation:isolate;
+    background:
+      linear-gradient(180deg,rgba(1,0,8,0) 0%,rgba(1,0,8,0) 50%,rgba(1,0,8,.31) 74%,rgba(1,0,8,.67) 88%,#010008 100%),
+      radial-gradient(60% 75% at 104% 62%,rgba(147,36,9,.85) 0%,rgba(147,36,9,0) 70%),
+      radial-gradient(70% 95% at 100% 8%,#FC530E 0%,rgba(246,64,9,.9) 35%,rgba(246,64,9,0) 72%),
+      radial-gradient(75% 70% at 8% 48%,#FA8A2D 0%,rgba(250,138,45,0) 75%),
+      #FA7119;
+  }
+  #loginScreen::after{
+    content:'';position:absolute;inset:0;z-index:-1;pointer-events:none;
+    background-image:var(--noise);opacity:.34;mix-blend-mode:overlay;
+  }
+  .login-box{
+    background:rgba(1,0,8,.6);border:1px solid rgba(255,255,255,.2);border-radius:28px;
+    padding:44px 36px;backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);
+    box-shadow:0 40px 80px -30px rgba(0,0,0,.8);
+  }
+  .login-logo{font-size:28px;}
+  .login-sub{color:rgba(255,255,255,.8);font-size:15px;}
+  .login-label{text-transform:none;letter-spacing:0;font-size:14px;font-weight:500;color:rgba(255,255,255,.8);}
+  .login-input{background:rgba(255,255,255,.07);border-color:rgba(255,255,255,.22);border-radius:14px;font-size:15px;}
+  .login-input:focus{border-color:#fff;}
+  .login-btn{background:var(--white);color:var(--login);border-radius:999px;font-size:17px;padding:12px;letter-spacing:0;transition:transform .2s,background .2s;}
+  .login-btn:hover{background:var(--white);transform:translateY(-2px);}
+  .login-msg.error,.form-msg.error{color:#FF8A70;}
+  .login-msg.success,.form-msg.success{color:var(--orange-warm);}
+
+  .sidebar{background:var(--bg);position:sticky;top:0;height:100vh;}
+  .logo{font-size:22px;}
+  .side-link{border-radius:999px;font-weight:500;font-size:15px;padding:10px 16px;}
+  .side-link.active{background:var(--white);color:var(--login);font-weight:700;}
+  .profile-chip{border-radius:16px;}
+  .profile-avatar{background:linear-gradient(140deg,#FA8A2D,#F64009);}
+  .topbar h1{font-size:clamp(30px,3.4vw,44px) !important;}
+  .btn-primary,.btn-outline,.upload-btn{border-radius:999px;padding:10px 22px;font-size:15px;}
+  .btn-primary,.upload-btn{background:var(--white);color:var(--login);transition:transform .2s;}
+  .btn-primary:hover,.upload-btn:hover{background:var(--white);transform:translateY(-2px);}
+  .btn-outline{border-color:rgba(255,255,255,.75);font-weight:500;}
+  .btn-outline:hover{border-color:#fff;}
+  .stat-row{gap:12px;background:none;border:none;}
+  .stat-box{background:var(--panel);border:1px solid var(--line);border-radius:24px;}
+  .stat-box .label{text-transform:none;letter-spacing:0;font-size:14px;}
+  .stat-box .value{font-size:38px;font-weight:600;}
+  .panel,.post-card{background:var(--panel);border-radius:24px;}
+  .panel-head h2,.panel-mini-head h2,.recent-head h2{font-weight:600;font-size:18px;}
+  .icon-btn{border-radius:50%;}
+  .cal-grid,.cal-weekdays{grid-template-columns:repeat(7,minmax(0,1fr));}
+  .cal-cell{border-radius:12px;min-width:0;}
+  .cal-cell.today{background:linear-gradient(140deg,#FA8A2D,#F64009);border-color:transparent;}
+  .cal-cell.today .date-num{color:#fff;}
+  .cal-weekdays span{text-transform:none;font-weight:500;font-size:12.5px;}
+  .cal-post-tag{border-radius:6px;}
+  .cal-post-tag.ig{color:#B5472B;}
+  .upload-zone{border-radius:20px;border-width:1px;border-color:rgba(255,255,255,.3);}
+  .upload-zone h3{font-weight:600;font-size:17px;}
+  .file-row{border-radius:14px;}
+  .post-thumb{
+    background:
+      radial-gradient(90% 110% at 100% 0%,#FC530E,rgba(246,64,9,0) 70%),
+      radial-gradient(80% 90% at 0% 60%,#FA8A2D,rgba(250,138,45,0) 75%),
+      linear-gradient(180deg,#FA7119,#932409);
+    color:#fff;
+  }
+  .post-thumb .play{background:#fff;color:var(--login);}
+  .post-thumb .platform-tag{background:rgba(1,0,8,.7);color:#fff;font-weight:500;text-transform:none;font-size:12px;}
+  .post-actions button{border-radius:999px;color:var(--ink);}
+  .post-actions .approve{background:var(--white);color:var(--login);border-color:var(--white);}
+  .post-actions .approve:hover{background:var(--white);}
+  .pill{text-transform:none;letter-spacing:0;font-weight:500;font-size:12.5px;}
+  .pill.scheduled{background:rgba(255,255,255,.09);color:rgba(255,255,255,.78);}
+  .pill.review{background:rgba(255,209,102,.16);color:#FFD166;}
+  .pill.review::before{background:#FFD166;}
+  .pill.approved{background:rgba(125,219,163,.16);color:#7DDBA3;}
+  .pill.approved::before{background:#7DDBA3;}
+  .pill.posted{background:rgba(143,176,255,.16);color:#8FB0FF;}
+  .pill.posted::before{background:#8FB0FF;}
+  .post-modal-overlay{background:rgba(1,0,8,.72);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);}
+  .post-modal-box{border:1px solid var(--line);border-radius:24px;}
+  .post-modal-header h3{font-weight:600;}
+  @media (max-width:980px){
+    .sidebar{position:static;height:auto;}
+  }
 </style>
 </head>
 <body>
@@ -713,7 +811,7 @@
         .lte('post_date', formatDateLocal(gridEnd));
 
       if (error) {
-        calGrid.innerHTML = `<div style="padding:20px;color:#B5472B;font-size:13px;">Couldn't load posts: ${error.message}</div>`;
+        calGrid.innerHTML = `<div style="padding:20px;color:#FF8A70;font-size:13px;">Couldn't load posts: ${error.message}</div>`;
         return;
       }
       posts = data || [];
@@ -927,7 +1025,7 @@
       .list(currentUserId, { sortBy: { column: 'created_at', order: 'desc' } });
 
     if (error) {
-      fileList.innerHTML = `<div style="padding:14px 0;color:#B5472B;font-size:13px;">Couldn't load files: ${error.message}</div>`;
+      fileList.innerHTML = `<div style="padding:14px 0;color:#FF8A70;font-size:13px;">Couldn't load files: ${error.message}</div>`;
       return;
     }
     if (!data || data.length === 0) {
@@ -977,7 +1075,7 @@
 
     if (error) {
       meta.textContent = `Upload failed: ${error.message}`;
-      meta.style.color = '#B5472B';
+      meta.style.color = '#FF8A70';
     } else {
       meta.textContent = `${sizeLabel} · Uploaded just now`;
       row.appendChild(document.createRange().createContextualFragment(checkIcon()));

@@ -6,23 +6,29 @@
 <title>Admin — wave.mgmnt</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Google+Sans:wght@400..700&display=swap" rel="stylesheet">
 <style>
   :root{
+    /* sampled from the reference */
+    --bg:#010008;
+    --panel:#0A0911;
     --white:#FFFFFF;
-    --ink:#0E1410;
-    --accent:#034750;
-    --accent-soft:#E2EDEC;
-    --tint:#F5F6F3;
-    --line:#E4E6E1;
-    --muted:#5C6358;
+    --ink:#FFFFFF;
+    --accent:#FA7119;
+    --orange-warm:#FA8A2D;
+    --login:#E4521F;
+    --accent-soft:rgba(250,113,25,.16);
+    --tint:rgba(255,255,255,.06);
+    --line:rgba(255,255,255,.13);
+    --muted:rgba(255,255,255,.64);
+    --noise:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='.33 .33 .33 0 0 .33 .33 .33 0 0 .33 .33 .33 0 0 0 0 0 0 1'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
   }
   *{margin:0;padding:0;box-sizing:border-box;}
   body{
-    background:var(--white);color:var(--ink);
-    font-family:'Inter',sans-serif;-webkit-font-smoothing:antialiased;
+    background:var(--bg);color:var(--ink);
+    font-family:'Google Sans',sans-serif;-webkit-font-smoothing:antialiased;
   }
-  .display{font-family:'Archivo Black',sans-serif;text-transform:uppercase;letter-spacing:-0.01em;line-height:0.95;}
+  .display{font-family:'Google Sans',sans-serif;font-weight:600;letter-spacing:-0.012em;line-height:1.12;}
   a{color:inherit;text-decoration:none;}
   button{font-family:inherit;cursor:pointer;}
 
@@ -36,13 +42,13 @@
     border:1px solid var(--line);border-radius:8px;
     padding:40px 36px;
   }
-  .login-logo{font-family:'Archivo Black',sans-serif;font-size:22px;text-align:center;margin-bottom:8px;}
+  .login-logo{font-family:'Google Sans',sans-serif;font-weight:700;font-size:22px;text-align:center;margin-bottom:8px;}
   .login-logo .dot{color:var(--accent);}
   .login-sub{text-align:center;font-size:14px;color:var(--muted);margin-bottom:32px;}
   .login-label{font-size:12.5px;font-weight:700;text-transform:uppercase;letter-spacing:0.04em;color:var(--muted);margin-bottom:8px;display:block;}
   .login-input{
     width:100%;padding:13px 14px;border:1px solid var(--line);border-radius:5px;
-    font-size:14px;font-family:'Inter',sans-serif;margin-bottom:18px;
+    font-size:14px;font-family:'Google Sans',sans-serif;margin-bottom:18px;
     transition:border-color .2s;
   }
   .login-input:focus{outline:none;border-color:var(--accent);}
@@ -51,10 +57,10 @@
     padding:13px;font-weight:700;font-size:14px;letter-spacing:0.02em;
     transition:background .2s;
   }
-  .login-btn:hover{background:#022F36;}
+  .login-btn:hover{background:#FA8A2D;}
   .login-btn:disabled{opacity:0.6;cursor:not-allowed;}
   .login-msg{margin-top:16px;font-size:13px;text-align:center;color:var(--muted);min-height:18px;}
-  .login-msg.error{color:#B5472B;}
+  .login-msg.error{color:#FF8A70;}
   .login-msg.success{color:var(--accent);}
   #appScreen{display:none;}
 
@@ -64,13 +70,13 @@
     padding:18px 32px;
     display:flex;justify-content:space-between;align-items:center;
   }
-  .logo{font-family:'Archivo Black',sans-serif;font-size:18px;}
+  .logo{font-family:'Google Sans',sans-serif;font-weight:700;font-size:18px;}
   .logo .dot{color:var(--accent);}
   .topbar-right{display:flex;align-items:center;gap:18px;}
   .topbar-right a{font-size:13px;color:var(--muted);}
   .topbar-right a:hover{color:var(--ink);}
   .logout-link{font-size:13px;color:var(--muted);cursor:pointer;}
-  .logout-link:hover{color:#B5472B;}
+  .logout-link:hover{color:#FF8A70;}
 
   .drive-status-pill{
     display:inline-flex;align-items:center;gap:6px;
@@ -98,7 +104,7 @@
   }
   .form-input, .form-select, .form-textarea{
     width:100%;padding:12px 14px;border:1px solid var(--line);border-radius:5px;
-    font-size:14px;font-family:'Inter',sans-serif;background:white;
+    font-size:14px;font-family:'Google Sans',sans-serif;background:var(--panel);
     transition:border-color .2s;
   }
   .form-input:focus, .form-select:focus, .form-textarea:focus{outline:none;border-color:var(--accent);}
@@ -112,18 +118,18 @@
     display:inline-flex;align-items:center;gap:8px;
     transition:background .2s;
   }
-  .submit-btn:hover{background:#022F36;}
+  .submit-btn:hover{background:#FA8A2D;}
   .submit-btn:disabled{opacity:0.6;cursor:not-allowed;}
 
   .form-msg{margin-top:14px;font-size:13.5px;min-height:18px;}
-  .form-msg.error{color:#B5472B;}
+  .form-msg.error{color:#FF8A70;}
   .form-msg.success{color:var(--accent);font-weight:600;}
 
   /* Recent posts table */
   .recent-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:14px;}
   .recent-head h2{font-size:16px;font-weight:800;}
   .recent-head button{
-    border:1px solid var(--line);background:white;border-radius:5px;
+    border:1px solid var(--line);background:var(--panel);border-radius:5px;
     padding:7px 13px;font-size:12.5px;font-weight:700;color:var(--muted);
   }
   .recent-head button:hover{background:var(--tint);color:var(--ink);}
@@ -154,6 +160,71 @@
   @media (max-width: 600px){
     .form-grid-2, .form-grid-3{grid-template-columns:1fr;}
     .wrap{padding:32px 18px 60px;}
+  }
+  /* ================= Redesign skin: Google Sans, orange grain on near-black ================= */
+  :root{color-scheme:dark;}
+  body{font-size:15px;}
+  input,select,textarea{color:var(--ink);}
+  ::placeholder{color:rgba(255,255,255,.4);}
+  :focus-visible{outline:2px solid #fff;outline-offset:2px;}
+  .logo,.login-logo{letter-spacing:-0.02em;}
+  .logo .dot,.login-logo .dot{color:inherit;}
+
+  #loginScreen{
+    position:relative;isolation:isolate;
+    background:
+      linear-gradient(180deg,rgba(1,0,8,0) 0%,rgba(1,0,8,0) 50%,rgba(1,0,8,.31) 74%,rgba(1,0,8,.67) 88%,#010008 100%),
+      radial-gradient(60% 75% at 104% 62%,rgba(147,36,9,.85) 0%,rgba(147,36,9,0) 70%),
+      radial-gradient(70% 95% at 100% 8%,#FC530E 0%,rgba(246,64,9,.9) 35%,rgba(246,64,9,0) 72%),
+      radial-gradient(75% 70% at 8% 48%,#FA8A2D 0%,rgba(250,138,45,0) 75%),
+      #FA7119;
+  }
+  #loginScreen::after{
+    content:'';position:absolute;inset:0;z-index:-1;pointer-events:none;
+    background-image:var(--noise);opacity:.34;mix-blend-mode:overlay;
+  }
+  .login-box{
+    background:rgba(1,0,8,.6);border:1px solid rgba(255,255,255,.2);border-radius:28px;
+    padding:44px 36px;backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);
+    box-shadow:0 40px 80px -30px rgba(0,0,0,.8);
+  }
+  .login-logo{font-size:28px;}
+  .login-sub{color:rgba(255,255,255,.8);font-size:15px;}
+  .login-label{text-transform:none;letter-spacing:0;font-size:14px;font-weight:500;color:rgba(255,255,255,.8);}
+  .login-input{background:rgba(255,255,255,.07);border-color:rgba(255,255,255,.22);border-radius:14px;font-size:15px;}
+  .login-input:focus{border-color:#fff;}
+  .login-btn{background:var(--white);color:var(--login);border-radius:999px;font-size:17px;padding:12px;letter-spacing:0;transition:transform .2s,background .2s;}
+  .login-btn:hover{background:var(--white);transform:translateY(-2px);}
+  .login-msg.error,.form-msg.error{color:#FF8A70;}
+  .login-msg.success,.form-msg.success{color:var(--orange-warm);}
+
+  .topbar{background:rgba(1,0,8,.8);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);position:sticky;top:0;z-index:20;}
+  .logo{font-size:22px;}
+  .wrap h1{font-size:clamp(30px,3.6vw,44px) !important;}
+  .form-panel{background:var(--panel);border-radius:24px;}
+  .form-row label{text-transform:none !important;letter-spacing:0 !important;font-size:14px !important;font-weight:500 !important;}
+  .form-input,.form-select,.form-textarea{background:rgba(255,255,255,.06);border-color:rgba(255,255,255,.2);border-radius:14px;font-size:15px;}
+  .form-input:focus,.form-select:focus,.form-textarea:focus{border-color:#fff;}
+  .form-select option{background:#0A0911;color:#fff;}
+  .submit-btn,.connect-drive-btn,.recent-head button{border-radius:999px;}
+  .submit-btn,.connect-drive-btn{background:var(--white);color:var(--login);letter-spacing:0;font-size:15px;transition:transform .2s;}
+  .submit-btn:hover,.connect-drive-btn:hover{background:var(--white);transform:translateY(-2px);}
+  .recent-head h2{font-weight:600;font-size:18px;}
+  .recent-head button{border-color:rgba(255,255,255,.6);color:var(--ink);font-weight:500;}
+  th{text-transform:none;letter-spacing:0;font-size:13px;font-weight:500;}
+  .status-tag{text-transform:none;letter-spacing:0;font-weight:500;font-size:12.5px;}
+  .status-tag.scheduled{background:rgba(255,255,255,.09);color:rgba(255,255,255,.78);}
+  .status-tag.review{background:rgba(255,209,102,.16);color:#FFD166;}
+  .status-tag.review::before{background:#FFD166;}
+  .status-tag.approved{background:rgba(125,219,163,.16);color:#7DDBA3;}
+  .status-tag.approved::before{background:#7DDBA3;}
+  .status-tag.posted{background:rgba(143,176,255,.16);color:#8FB0FF;}
+  .status-tag.posted::before{background:#8FB0FF;}
+  @media (max-width:700px){
+    .topbar{flex-wrap:wrap;gap:12px;padding:14px 18px;}
+    .topbar-right{flex-wrap:wrap;gap:10px 14px;}
+    table{font-size:12.5px;}
+    th,td{padding-left:6px;padding-right:6px;}
   }
 </style>
 </head>
@@ -484,7 +555,7 @@
       .limit(10);
 
     if (error) {
-      recentBody.innerHTML = `<tr><td colspan="4" class="empty-row" style="color:#B5472B;">Couldn't load: ${error.message}</td></tr>`;
+      recentBody.innerHTML = `<tr><td colspan="4" class="empty-row" style="color:#FF8A70;">Couldn't load: ${error.message}</td></tr>`;
       return;
     }
     if (!data || data.length === 0) {
