@@ -190,6 +190,7 @@
   .nav-eco i{width:9px;height:9px;background:radial-gradient(circle,var(--accent) 1.5px,transparent 2px) 0 0/4.5px 4.5px;}
   .nav-eco:hover{color:var(--text);}
   .nav-btn{display:none;padding:0 14px;}
+  .nav-btn .btn{white-space:nowrap;}
   .nav-toggle{margin-left:auto;width:var(--hdr);justify-content:center;border:0;border-left:1px solid var(--line);background:transparent;color:var(--text);}
   .nav-toggle span{position:relative;display:block;width:18px;height:12px;}
   .nav-toggle i{position:absolute;left:0;right:0;height:1.5px;background:currentColor;transition:transform .3s var(--ease),opacity .2s,top .3s var(--ease);}
@@ -247,7 +248,7 @@
   @keyframes statue-in{from{opacity:0;transform:translateY(24px) scale(.96);}}
   @keyframes floaty{50%{transform:translateY(-8px);}}
   @keyframes breathe{50%{opacity:.7;transform:translate(-50%,-50%) scale(1.06);}}
-  .hero-note{padding:24px var(--pad) 26px;border-bottom:1px solid var(--line);}
+  .hero-note{padding:24px var(--pad) 30px;}
   .lede{font-family:var(--sans);font-weight:800;font-size:clamp(34px,9.6vw,46px);letter-spacing:-0.03em;line-height:1.04;margin:14px 0 14px;}
   .hero-sub{color:var(--mute);font-size:13px;line-height:1.6;max-width:34em;margin-bottom:22px;}
   .counter{display:none;}
@@ -257,14 +258,14 @@
   @keyframes rise{from{opacity:0;transform:translateY(16px);}}
 
   /* featured card (light) */
-  .feature{position:relative;display:flex;flex-direction:column;background:var(--stardust);color:#111;--line:#CBC5C2;--mute:#5F5B59;--panel:#F7F1EE;}
+  .feature{position:relative;order:-2;display:flex;flex-direction:column;background:var(--stardust);color:#111;--line:#CBC5C2;--mute:#5F5B59;--panel:#F7F1EE;}
   .feature .tags{position:absolute;left:0;top:0;}
   .feature .tag{border-top:0;border-left:0;color:#333;}
   .feature .tag.hot{background:var(--indigo);border-color:var(--indigo);color:var(--white);}
   .feature-body{flex:1;display:grid;gap:14px;align-content:center;padding:52px var(--pad) 26px;}
   .feature-logo{display:flex;align-items:center;gap:10px;font-family:var(--sans);font-weight:800;font-size:26px;letter-spacing:-0.035em;}
   .feature-logo svg{width:34px;height:34px;flex:none;color:var(--indigo);}
-  .feature-body p{font-size:12.5px;line-height:1.6;color:#333;max-width:34em;}
+  .feature-body p{font-family:var(--sans);font-weight:600;font-size:clamp(18px,4.9vw,21px);letter-spacing:-0.02em;line-height:1.28;color:#111;max-width:24em;}
   .feature .cells{grid-template-columns:1fr 1fr 1fr 56px;}
   .feature .cell b{font-size:17px;}
   .feature .go{color:#111;}
@@ -282,13 +283,17 @@
     }
     .hero-grid{grid-template-columns:1fr 1fr 2fr;min-height:400px;}
     .hero-art{order:0;height:auto;border-bottom:0;border-left:1px solid var(--line);border-right:1px solid var(--line);}
-    .hero-note{display:flex;flex-direction:column;border-bottom:0;padding-bottom:0;}
+    .hero-note{display:flex;flex-direction:column;padding-bottom:0;}
+    .feature{order:0;}
     .lede{font-size:clamp(30px,3.1vw,42px);}
     .hero-sub{font-size:12.5px;}
     .hero-note .btn{align-self:flex-start;}
     .counter{display:block;margin:auto calc(-1 * var(--pad)) 0;padding:16px var(--pad) 18px;border-top:1px solid var(--line);}
     .counter .num{display:block;font-size:34px;margin-top:10px;}
-    .feature-body{grid-template-columns:auto 1fr;gap:clamp(18px,3vw,40px);padding:60px var(--pad) 30px;align-items:center;}
+    .feature-body{gap:18px;padding:60px var(--pad) 30px;}
+    .feature-logo{font-size:30px;}
+    .feature-logo svg{width:40px;height:40px;}
+    .feature-body p{font-size:clamp(20px,2vw,26px);}
     .feature .cells{grid-template-columns:1fr 1fr 1fr 64px;}
   }
 
@@ -327,31 +332,6 @@
   .frieze b.o{color:transparent;-webkit-text-stroke:1.2px var(--foggy);}
   @keyframes marquee{to{transform:translateX(-50%);}}
   @media (hover:hover){.frieze:hover .frieze-track{animation-play-state:paused;}}
-
-  /* ---------- Banner (light, Foggy) ---------- */
-  .banner{
-    display:grid;color:#111;--line:rgba(17,17,17,.28);--mute:rgba(17,17,17,.7);--dim:rgba(17,17,17,.55);
-    background:
-      repeating-linear-gradient(180deg,rgba(255,255,255,.06) 0 2px,rgba(0,0,0,.02) 2px 7px),
-      linear-gradient(96deg,#A8A692 0%,#B1AF9A 30%,#BBB9A0 55%,#CDCAB2 80%,#D6D3BA 100%);
-  }
-  .banner .tags{position:absolute;left:0;top:0;}
-  .banner .tag{background:transparent;border-color:var(--line);border-top:0;border-left:0;color:#111;}
-  .banner .tag.hot{background:#111;border-color:#111;color:var(--foggy-light);}
-  .banner-copy{position:relative;padding:58px var(--pad) 30px;}
-  .banner h2{font-size:clamp(40px,11vw,56px);margin-bottom:16px;}
-  .banner .it{color:var(--indigo-mid);}
-  .banner p{font-size:13px;line-height:1.6;color:rgba(17,17,17,.82);max-width:34em;}
-  .banner-art{position:relative;height:300px;border-top:1px solid var(--line);overflow:hidden;--c:rgba(17,17,17,.5);}
-  .banner-art img{position:absolute;right:8%;bottom:-18px;height:104%;width:auto;max-width:none;filter:drop-shadow(-12px 8px 18px rgba(13,70,89,.3));}
-  .banner-art .fig{position:absolute;left:24px;bottom:22px;max-width:11em;line-height:1.5;color:rgba(17,17,17,.62);}
-  @media (min-width:900px){
-    .banner{grid-template-columns:1fr 1fr;min-height:480px;}
-    .banner-copy{display:flex;flex-direction:column;justify-content:flex-end;padding:70px var(--pad) 40px;}
-    .banner h2{font-size:clamp(46px,6vw,80px);margin-bottom:22px;}
-    .banner-art{height:auto;border-top:0;border-left:1px solid var(--line);}
-    .banner-art img{right:14%;bottom:-6%;height:106%;}
-  }
 
   /* ---------- Stats ---------- */
   .stats{display:grid;grid-template-columns:repeat(3,1fr);}
@@ -418,68 +398,6 @@
     .step:hover p{color:rgba(255,250,248,.9);}
   }
 
-  /* ---------- Services ---------- */
-  .c3{grid-template-columns:1fr 1fr;padding:0;}
-  .service .art{position:relative;height:132px;overflow:hidden;background-color:#060606;--o:8px;--s:9px;}
-  .service .art img{position:absolute;left:50%;bottom:0;height:82%;width:auto;max-width:none;transform:translateX(-50%);transition:transform .6s var(--ease);}
-  .service .art .fig{position:absolute;right:16px;bottom:13px;font-size:9px;}
-  .service .cells{grid-template-columns:1fr;flex:1;}
-  .service .cell{padding:12px 12px 14px;}
-  .service h3{font-size:15px;margin-bottom:6px;}
-  .service p{font-size:11.5px;line-height:1.55;color:var(--mute);}
-  .service .go{display:none;}
-  @media (hover:hover){.service:hover .art img{transform:translateX(-50%) translateY(-4px) scale(1.04);}}
-  @media (min-width:700px){
-    .c3{gap:14px;}
-    .service .art{height:clamp(170px,18vw,220px);--o:10px;--s:11px;}
-    .service .cells{grid-template-columns:1fr 56px;}
-    .service .cell{padding:16px 18px 18px;}
-    .service h3{font-size:19px;margin-bottom:8px;}
-    .service p{font-size:12.5px;}
-    .service .go{display:flex;}
-  }
-  @media (min-width:1081px){.c3{grid-template-columns:repeat(3,1fr);}}
-
-  /* ---------- Portal ---------- */
-  .portal{display:grid;background:
-      radial-gradient(70% 90% at 100% 0%,rgba(78,129,148,.55),rgba(78,129,148,0) 70%),
-      linear-gradient(120deg,#0B1A21 0%,#16303D 45%,#0D4659 100%);}
-  .portal-copy{padding:var(--sect) var(--pad) 30px;}
-  .portal .label{color:var(--foggy-light);margin-bottom:16px;}
-  .portal h2{margin-bottom:16px;}
-  .portal .it{color:var(--foggy-light);}
-  .portal-copy > p{color:rgba(255,250,248,.82);font-size:13px;line-height:1.6;max-width:36em;margin-bottom:22px;}
-  .checks{display:grid;gap:0;margin-bottom:24px;border-top:1px solid rgba(255,255,255,.16);}
-  .checks li{display:flex;gap:12px;padding:11px 0;border-bottom:1px solid rgba(255,255,255,.16);font-size:12.5px;line-height:1.5;color:rgba(255,250,248,.92);}
-  .checks li::before{content:'+';color:var(--foggy-light);font-weight:700;flex:none;}
-  .portal-mock{padding:0 var(--pad) var(--pad);}
-  .mock{background:rgba(0,0,0,.6);border:1px solid rgba(255,255,255,.18);}
-  .mock-top{display:flex;align-items:center;gap:7px;padding:11px 14px;border-bottom:1px solid rgba(255,255,255,.14);}
-  .mock-top i{width:8px;height:8px;background:rgba(255,255,255,.24);}
-  .mock-top span{font-size:11px;color:var(--mute);margin-left:8px;}
-  .mock-body{padding:16px;}
-  .mock-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;font-size:11.5px;letter-spacing:.04em;text-transform:uppercase;}
-  .mock-head span:last-child{color:var(--mute);}
-  .mock-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:4px;margin-bottom:14px;}
-  .mock-cell{aspect-ratio:1;background:rgba(255,255,255,.07);position:relative;}
-  .mock-cell.post::after{content:'';position:absolute;bottom:4px;left:4px;right:4px;height:3px;background:var(--accent);transform-origin:left;transition:transform .7s var(--ease) calc(.25s + var(--d,0) * .12s);}
-  .js .portal:not(.visible) .mock-cell.post::after{transform:scaleX(0);}
-  .mock-cell.on{background:var(--accent);animation:pulse 2.6s ease-in-out infinite;}
-  @keyframes pulse{50%{box-shadow:0 0 0 4px rgba(108,155,173,.25);}}
-  .mock-drop{border:1px dashed rgba(255,255,255,.3);padding:18px;text-align:center;}
-  .mock-drop svg{color:var(--accent);margin:0 auto 8px;display:block;animation:nudge 2.4s ease-in-out infinite;}
-  @keyframes nudge{50%{transform:translateY(-5px);}}
-  .mock-drop p{font-size:12px;color:rgba(255,250,248,.85);}
-  .mock-drop span{display:inline-block;margin-top:9px;font-size:10.5px;color:var(--mute);border:1px solid rgba(255,255,255,.16);padding:3px 9px;}
-  @media (min-width:900px){
-    .portal{grid-template-columns:1fr 1fr;}
-    .portal-copy{padding-bottom:var(--sect);}
-    .portal-mock{display:flex;align-items:center;padding:var(--sect) var(--pad);border-left:1px solid rgba(255,255,255,.14);}
-    .mock{width:100%;}
-    .mock-body{padding:20px;}
-    .mock-grid{gap:6px;}
-  }
-
   /* ---------- Testimonial ---------- */
   .quote{text-align:center;max-width:900px;margin:0 auto;}
   .wreath{display:inline-flex;align-items:center;gap:4px;color:var(--foggy);}
@@ -515,29 +433,47 @@
     .price-foot{padding:20px 22px 22px;}
   }
 
-  /* ---------- Final call-to-action ---------- */
-  .cta{display:grid;}
-  .cta-art{position:relative;height:270px;overflow:hidden;border-bottom:1px solid var(--line);
-    background-color:#060606;}
-  .cta-art::before{content:'';position:absolute;left:50%;top:55%;width:74%;aspect-ratio:1;transform:translate(-50%,-50%);border-radius:50%;background:radial-gradient(closest-side,rgba(13,70,89,.9),rgba(13,70,89,0));}
-  .cta-art .zeus-wrap{position:absolute;inset:0;display:flex;align-items:flex-end;justify-content:center;}
-  .cta-art .zeus-wrap img{height:72%;width:auto;max-width:none;animation:floaty 8s ease-in-out infinite;}
-  .cta-col{position:absolute;bottom:-1px;height:92%;width:auto;color:#5E5E5E;}
-  .cta-col.l{left:8%;}
-  .cta-col.r{right:8%;}
-  .cta-art .fig{position:absolute;left:24px;top:22px;}
-  .cta-copy{padding:28px var(--pad) 6px;}
-  .cta-line{font-family:var(--mono);font-size:clamp(19px,5.6vw,30px);font-weight:500;letter-spacing:.01em;line-height:1.5;text-transform:uppercase;}
-  .cta-line::before{content:'▸';color:var(--accent);margin-right:.5em;}
-  .cta-line mark{background:var(--white);color:#000;padding:.08em .34em;box-decoration-break:clone;-webkit-box-decoration-break:clone;}
-  .cta-copy p{color:var(--mute);font-size:12.5px;line-height:1.6;max-width:36em;margin-top:16px;}
-  .cta-btns{display:grid;gap:10px;padding:22px var(--pad) 30px;align-content:center;}
+  /* ---------- Final call-to-action: a temple front ---------- */
+  .cta{--stone:#BBB9A0;padding:calc(var(--sect) * .75) var(--pad);
+    background:radial-gradient(60% 62% at 50% 52%,rgba(13,70,89,.8),rgba(13,70,89,0)),var(--bg);}
+  .portico{--cw:clamp(28px,8.4vw,60px);max-width:1040px;margin:0 auto;}
+  .entab{margin:0 -5px;}
+  .entab > i{display:block;height:8px;border:1px solid var(--stone);opacity:.7;}
+  .entab > i:last-child{height:6px;margin:0 5px;border-top:0;}
+  .entab .meander{margin:5px 5px;opacity:.7;}
+  .portico-row{display:grid;grid-template-columns:var(--cw) minmax(0,1fr) var(--cw);gap:clamp(8px,2.4vw,30px);}
+  .pcol{display:flex;flex-direction:column;transform-origin:50% 100%;transition:transform 1.1s var(--ease),opacity .7s;}
+  .pcol.x{display:none;}
+  .pcol svg{display:block;width:100%;height:auto;overflow:visible;fill:none;stroke:var(--stone);stroke-width:1.2;opacity:.75;}
+  .pcol svg *{vector-effect:non-scaling-stroke;}
+  .pcol > i{
+    flex:1;min-height:60px;margin:0 21%;opacity:.75;
+    border-left:1px solid var(--stone);border-right:1px solid var(--stone);
+    background:
+      linear-gradient(var(--stone),var(--stone)) 25% 0/1px 100% no-repeat,
+      linear-gradient(var(--stone),var(--stone)) 50% 0/1px 100% no-repeat,
+      linear-gradient(var(--stone),var(--stone)) 75% 0/1px 100% no-repeat;
+  }
+  .js .portico:not(.visible) .pcol{transform:scaleY(.25);opacity:0;}
+  .pcol:nth-of-type(2),.pcol:nth-last-of-type(2){transition-delay:.12s;}
+  .portico-in{padding:34px 0 30px;text-align:center;display:flex;flex-direction:column;align-items:center;justify-content:center;}
+  .portico-in .label{margin-bottom:18px;}
+  .cta-line{font-family:var(--mono);font-size:clamp(17px,5.2vw,40px);font-weight:500;letter-spacing:.01em;line-height:1.5;text-transform:uppercase;}
+  .cta-line mark{background:var(--white);color:#000;padding:.06em .3em;box-decoration-break:clone;-webkit-box-decoration-break:clone;}
+  .portico-in p{color:var(--mute);font-size:12.5px;line-height:1.6;max-width:34em;margin:16px 0 22px;}
+  .cta-btns{display:grid;gap:10px;width:100%;max-width:300px;}
+  .stylobate{margin:0 -5px;}
+  .stylobate i{display:block;height:8px;border:1px solid var(--stone);border-bottom:0;opacity:.7;}
+  .stylobate i:nth-child(1){margin:0 5px;}
+  .stylobate i:nth-child(3){margin:0 -5px;border-bottom:1px solid var(--stone);}
+  @media (min-width:700px){
+    .portico-in{padding:54px 0 48px;}
+    .portico-in p{font-size:13px;margin:20px 0 28px;}
+    .cta-btns{grid-template-columns:1fr 1fr;max-width:460px;}
+  }
   @media (min-width:900px){
-    .cta{grid-template-columns:2fr 1fr 1fr;min-height:260px;}
-    .cta-art{order:2;height:auto;border-bottom:0;border-left:1px solid var(--line);border-right:1px solid var(--line);}
-    .cta-copy{display:flex;flex-direction:column;justify-content:center;padding:40px var(--pad);}
-    .cta-line{font-size:clamp(20px,2.2vw,30px);}
-    .cta-btns{order:3;padding:40px var(--pad);}
+    .portico-row{grid-template-columns:var(--cw) var(--cw) minmax(0,1fr) var(--cw) var(--cw);}
+    .pcol.x{display:flex;}
   }
 
   /* ---------- Floating call-to-action (phones) ---------- */
@@ -552,25 +488,16 @@
   @media (min-width:900px){.float-cta{display:none;}}
 
   /* ---------- Footer ---------- */
-  footer.frame{border-top:1px solid var(--line);padding-bottom:calc(84px + env(safe-area-inset-bottom));}
-  .foot{display:grid;grid-template-columns:1fr 1fr;}
-  .foot > div{padding:22px var(--pad);border-bottom:1px solid var(--line);}
-  .foot > div:first-child,.foot > div:last-child{grid-column:1/-1;}
-  .foot > div:nth-child(2){border-right:1px solid var(--line);}
-  .foot .logo-f{display:flex;align-items:center;gap:9px;font-family:var(--sans);font-weight:800;font-size:22px;letter-spacing:-0.035em;margin-bottom:12px;}
-  .foot .logo-f svg{width:28px;height:28px;color:var(--accent);}
-  .foot p{color:var(--mute);max-width:26em;font-size:12.5px;line-height:1.6;}
-  .foot h4{font-size:10.5px;font-weight:500;letter-spacing:.08em;text-transform:uppercase;color:var(--dim);margin-bottom:10px;}
-  .foot-col a{display:block;padding:6px 0;font-size:13px;transition:color .2s;overflow-wrap:anywhere;}
-  .foot-col a:hover{color:var(--accent);}
-  .foot-bottom{display:flex;justify-content:space-between;flex-wrap:wrap;gap:6px 12px;padding:16px var(--pad);color:var(--dim);font-size:11px;letter-spacing:.04em;text-transform:uppercase;}
-  @media (min-width:900px){
-    footer.frame{padding-bottom:0;}
-    .foot{grid-template-columns:2fr 1fr 1fr 1fr 1fr;}
-    .foot > div,.foot > div:first-child,.foot > div:last-child{grid-column:auto;padding:30px var(--pad) 34px;border-right:1px solid var(--line);}
-    .foot > div:first-child{grid-column:span 2;}
-    .foot > div:last-child{border-right:0;}
+  footer.frame{border-top:1px solid var(--line);}
+  .foot-min{
+    display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:8px 24px;
+    padding:14px var(--pad) calc(16px + env(safe-area-inset-bottom));
+    font-size:10.5px;letter-spacing:.06em;text-transform:uppercase;color:var(--dim);
   }
+  .foot-min nav{display:flex;flex-wrap:wrap;gap:4px 20px;}
+  .foot-min a{padding:4px 0;color:var(--mute);transition:color .2s;}
+  .foot-min a.mail{text-transform:none;letter-spacing:.02em;}
+  .foot-min a:hover{color:var(--accent);}
 
   /* ---------- Scroll reveals ---------- */
   .js .reveal{opacity:0;transform:translateY(22px);transition:opacity .8s ease,transform .8s var(--ease);}
@@ -590,7 +517,7 @@
     .js .stats:not(.visible) .laurels svg{opacity:1;transform:none;}
     .js .stats:not(.visible) .laurels svg:last-child{transform:scaleX(-1);}
     .js .pediment:not(.visible) svg{clip-path:none;}
-    .js .portal:not(.visible) .mock-cell.post::after{transform:none;}
+    .js .portico:not(.visible) .pcol{transform:none;opacity:1;}
     .frieze-track{width:auto;}
     .frieze-set + .frieze-set{display:none;}
     .frieze-set{flex-wrap:wrap;justify-content:center;padding:0 var(--pad);}
@@ -612,20 +539,6 @@
       <path d="M32.5 81.4A36 36 0 0 1 32.5 14.6" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/>
       <path d="M28.5 79.5Q19.9 80.0 16.0 74.3Q24.1 73.2 28.5 79.5ZM28.5 79.5Q35.0 76.2 39.5 79.2Q34.7 83.8 28.5 79.5ZM21.6 74.9Q13.2 73.0 10.9 66.6Q19.0 67.6 21.6 74.9ZM21.6 74.9Q28.8 73.5 32.2 77.7Q26.4 80.8 21.6 74.9ZM16.1 68.6Q8.5 64.5 8.0 57.6Q15.5 60.7 16.1 68.6ZM16.1 68.6Q23.4 69.2 25.6 74.1Q19.1 75.5 16.1 68.6ZM12.4 61.1Q6.2 55.2 7.5 48.4Q14.0 53.3 12.4 61.1ZM12.4 61.1Q19.3 63.6 20.1 69.0Q13.4 68.6 12.4 61.1ZM10.5 53.0Q6.1 45.6 9.2 39.4Q14.1 45.9 10.5 53.0ZM10.5 53.0Q16.5 57.3 15.9 62.6Q9.6 60.5 10.5 53.0ZM10.5 44.6Q8.2 36.4 12.9 31.2Q15.9 38.8 10.5 44.6ZM10.5 44.6Q15.2 50.3 13.2 55.3Q7.6 51.6 10.5 44.6ZM12.4 36.5Q12.4 28.0 18.3 24.2Q19.2 32.3 12.4 36.5ZM12.4 36.5Q15.4 43.2 12.1 47.5Q7.7 42.5 12.4 36.5ZM16.1 29.0Q18.3 20.8 25.0 18.6Q23.7 26.7 16.1 29.0ZM16.1 29.0Q17.3 36.3 13.0 39.6Q10.0 33.6 16.1 29.0Z" fill="currentColor"/>
     </symbol>
-    <symbol id="column" viewBox="0 0 80 400">
-      <g fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round">
-        <rect x="6" y="1" width="68" height="8"/>
-        <path d="M11 9H69V20H11Z"/>
-        <circle cx="11" cy="22" r="10"/><circle cx="11" cy="22" r="5.5"/><circle cx="11" cy="22" r="1.6"/>
-        <circle cx="69" cy="22" r="10"/><circle cx="69" cy="22" r="5.5"/><circle cx="69" cy="22" r="1.6"/>
-        <rect x="18" y="32" width="44" height="6"/>
-        <path d="M19 38H61L65 362H15Z"/>
-        <path d="M27.4 38L25 362M35.8 38L35 362M44.2 38L45 362M52.6 38L55 362"/>
-        <rect x="11" y="362" width="58" height="8" rx="4"/>
-        <rect x="7" y="370" width="66" height="9" rx="4.5"/>
-        <rect x="2" y="379" width="76" height="14"/>
-      </g>
-    </symbol>
   </defs>
 </svg>
 
@@ -634,9 +547,8 @@
     <a href="#top" class="logo"><svg aria-hidden="true"><use href="#logo-mark"/></svg>wave.mgmnt</a>
     <nav class="nav-links" aria-label="Main">
       <a href="#process">Process</a>
-      <a href="#services">Services</a>
-      <a href="#portal">Client Portal</a>
       <a href="#pricing">Pricing</a>
+      <a href="#audit">Free audit</a>
     </nav>
     <a href="#creators" class="nav-eco"><i></i>Our creators</a>
     <span class="nav-btn"><a href="portal.html" class="btn">Client login</a></span>
@@ -645,10 +557,10 @@
   <div class="frame menu" id="mobileMenu">
     <div>
       <nav aria-label="Mobile">
+        <a href="#creators">Creators</a>
         <a href="#process">Process</a>
-        <a href="#services">Services</a>
-        <a href="#portal">Client Portal</a>
         <a href="#pricing">Pricing</a>
+        <a href="#audit">Free audit</a>
         <a href="portal.html">Client login</a>
       </nav>
     </div>
@@ -662,9 +574,9 @@
     <h1 class="giant" aria-label="Train clients. We handle the feed."><span><b>Train<i>_</i></b></span><span><b>C<span class="k">l</span>ients</b></span></h1>
     <div class="hero-grid">
       <div class="hero-note">
-        <span class="label">Social media for fitness pros</span>
+        <span class="label">What we do</span>
         <p class="lede">We Handle <span class="it">the</span> <span class="it">Feed.</span></p>
-        <p class="hero-sub">wave.mgmnt runs content, captions, and posting for personal trainers, coaches, and gyms — so your socials grow while you're busy actually coaching.</p>
+        <p class="hero-sub">We run your content, captions, and posting — so your socials grow while you're busy actually coaching.</p>
         <a href="#pricing" class="btn">Grow with wave.mgmnt <svg aria-hidden="true"><use href="#arrow"/></svg></a>
         <div class="counter"><span class="label">Creators</span><span class="num">04</span></div>
       </div>
@@ -674,10 +586,10 @@
         <span class="fig">Fig. 01 — The Thinker</span>
       </div>
       <div class="feature">
-        <div class="tags"><span class="tag hot">New</span><span class="tag">Free audit</span></div>
+        <div class="tags"><span class="tag hot">Fitness only</span><span class="tag">Free audit</span></div>
         <div class="feature-body">
           <div class="feature-logo"><svg aria-hidden="true"><use href="#logo-mark"/></svg>wave.mgmnt</div>
-          <p>Book a free 20-minute audit of your current socials — we'll tell you exactly what's working and what isn't.</p>
+          <p>Social media management built exclusively for personal trainers, coaches, and gyms.</p>
         </div>
         <div class="cells">
           <div class="cell"><b>20 min</b><span>Audit call</span></div>
@@ -748,19 +660,6 @@
     <div class="meander flip"></div>
   </div>
 
-  <!-- BANNER / WHY -->
-  <section class="sec banner reveal">
-    <div class="banner-copy">
-      <div class="tags"><span class="tag hot">Fitness only</span><span class="tag">No templates</span></div>
-      <h2>We Train<br><span class="it">Your</span> <span class="it">Feed.</span></h2>
-      <p>Every strategist here works only with trainers, coaches, and studios — so the content sounds like you, not a template with your logo on it.</p>
-    </div>
-    <div class="banner-art brk">
-      <img src="images/pericles-light.webp" srcset="images/pericles-light-sm.webp 273w, images/pericles-light.webp 501w" sizes="(max-width:899px) 40vw, 22vw" width="501" height="1100" alt="" loading="lazy">
-      <span class="fig">Fig. 02 — Pericles, strategos of Athens. The original strategist.</span>
-    </div>
-  </section>
-
   <!-- STATS -->
   <section class="sec">
     <div class="stats reveal">
@@ -780,7 +679,7 @@
           <span class="label">How it runs, every week</span>
           <h2>From Your Camera Roll to a <span class="it">Finished</span> <span class="it">Feed.</span></h2>
         </div>
-        <div class="head-art brk reveal"><span class="fig">Fig. 03 — Athena</span><img src="images/athena.webp" width="343" height="760" alt="" loading="lazy"></div>
+        <div class="head-art brk reveal"><span class="fig">Fig. 02 — Athena</span><img src="images/athena.webp" width="343" height="760" alt="" loading="lazy"></div>
       </div>
       <div class="steps stagger" id="steps">
         <div class="step"><span class="num"></span><h3>You upload</h3><p>Drop raw clips, gym footage, or client testimonials straight into your portal — synced to your own Google Drive folder.</p></div>
@@ -790,84 +689,6 @@
         <div class="step"><span class="num"></span><h3>We post</h3><p>Scheduled and published on time, every time, across Instagram, TikTok, and YouTube.</p></div>
       </div>
       <div class="dots" id="stepDots" aria-hidden="true"><i class="on"></i><i></i><i></i><i></i><i></i></div>
-    </div>
-  </section>
-
-  <!-- SERVICES -->
-  <section id="services" class="sec">
-    <div class="in">
-      <div class="head reveal">
-        <span class="label">What's included</span>
-        <h2>Everything Your <span class="it">Feed</span> <span class="it">Needs.</span></h2>
-      </div>
-      <div class="cards c3 stagger">
-        <div class="card service">
-          <span class="tag">Service 01</span>
-          <div class="art brk"><span class="fig">Athena</span><img src="images/athena.webp" width="343" height="760" alt="" loading="lazy"></div>
-          <div class="cells"><div class="cell"><h3>Content calendar</h3><p>A live monthly calendar so you always know what's posting, and when — no surprises.</p></div><a class="cell go" href="#pricing" aria-label="See pricing"><svg aria-hidden="true"><use href="#arrow"/></svg></a></div>
-        </div>
-        <div class="card service">
-          <span class="tag">Service 02</span>
-          <div class="art brk"><span class="fig">Zeus</span><img src="images/zeus.webp" width="358" height="520" alt="" loading="lazy"></div>
-          <div class="cells"><div class="cell"><h3>Reels &amp; short-form</h3><p>Form checks, transformations, and gym-floor moments cut for retention, not just polish.</p></div><a class="cell go" href="#pricing" aria-label="See pricing"><svg aria-hidden="true"><use href="#arrow"/></svg></a></div>
-        </div>
-        <div class="card service">
-          <span class="tag">Service 03</span>
-          <div class="art brk"><span class="fig">Homer</span><img src="images/homer.webp" width="247" height="380" alt="" loading="lazy"></div>
-          <div class="cells"><div class="cell"><h3>Caption writing</h3><p>Hooks and captions in your voice, tuned for the algorithm without sounding like it.</p></div><a class="cell go" href="#pricing" aria-label="See pricing"><svg aria-hidden="true"><use href="#arrow"/></svg></a></div>
-        </div>
-        <div class="card service">
-          <span class="tag">Service 04</span>
-          <div class="art brk"><span class="fig">Amphora</span><img src="images/jar.webp" width="196" height="380" alt="" loading="lazy"></div>
-          <div class="cells"><div class="cell"><h3>Scheduling &amp; posting</h3><p>We publish on the right days at the right times — you never have to touch a scheduler.</p></div><a class="cell go" href="#pricing" aria-label="See pricing"><svg aria-hidden="true"><use href="#arrow"/></svg></a></div>
-        </div>
-        <div class="card service">
-          <span class="tag">Service 05</span>
-          <div class="art brk"><span class="fig">Socrates</span><img src="images/socrates.webp" width="261" height="380" alt="" loading="lazy"></div>
-          <div class="cells"><div class="cell"><h3>Growth reporting</h3><p>Plain-language monthly reports on reach, followers, and what content actually worked.</p></div><a class="cell go" href="#pricing" aria-label="See pricing"><svg aria-hidden="true"><use href="#arrow"/></svg></a></div>
-        </div>
-        <div class="card service">
-          <span class="tag">Service 06</span>
-          <div class="art brk"><span class="fig">Pericles</span><img src="images/pericles.webp" width="173" height="380" alt="" loading="lazy"></div>
-          <div class="cells"><div class="cell"><h3>Community management</h3><p>Comments and DMs answered the same day, so leads don't go cold.</p></div><a class="cell go" href="#pricing" aria-label="See pricing"><svg aria-hidden="true"><use href="#arrow"/></svg></a></div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- PORTAL -->
-  <section id="portal" class="sec portal reveal">
-    <div class="portal-copy">
-      <span class="label">Your client portal</span>
-      <h2>One Link. Your <span class="it">Whole</span> <span class="it">Calendar.</span></h2>
-      <p>No email attachments, no "did you get my files" texts. Everything you need lives in one clean dashboard built around how trainers actually work.</p>
-      <ul class="checks">
-        <li>See your full content calendar, updated live as posts get scheduled.</li>
-        <li>Drag in raw footage and it lands straight in your own Google Drive folder.</li>
-        <li>Preview every edit before it goes live, and approve in one tap.</li>
-        <li>Track reach and engagement without digging through three different apps.</li>
-      </ul>
-      <a href="portal.html" class="btn">Open client portal <svg aria-hidden="true"><use href="#arrow"/></svg></a>
-    </div>
-    <div class="portal-mock">
-      <div class="mock" aria-hidden="true">
-        <div class="mock-top"><i></i><i></i><i></i><span>wave.mgmnt / content calendar</span></div>
-        <div class="mock-body">
-          <div class="mock-head"><span>Content calendar</span><span>This month</span></div>
-          <div class="mock-grid">
-            <div class="mock-cell"></div><div class="mock-cell post" style="--d:0"></div><div class="mock-cell"></div>
-            <div class="mock-cell on"></div><div class="mock-cell post" style="--d:1"></div><div class="mock-cell"></div>
-            <div class="mock-cell"></div><div class="mock-cell"></div><div class="mock-cell post" style="--d:2"></div>
-            <div class="mock-cell"></div><div class="mock-cell"></div><div class="mock-cell post" style="--d:3"></div>
-            <div class="mock-cell"></div><div class="mock-cell"></div>
-          </div>
-          <div class="mock-drop">
-            <svg width="26" height="26" viewBox="0 0 28 28" fill="none"><path d="M14 4V18M14 4L9 9M14 4L19 9" stroke="currentColor" stroke-width="1.8"/><path d="M4 18V24H24V18" stroke="currentColor" stroke-width="1.8"/></svg>
-            <p>Drop files to upload</p>
-            <span>Synced to Google Drive</span>
-          </div>
-        </div>
-      </div>
     </div>
   </section>
 
@@ -934,54 +755,39 @@
     </div>
   </section>
 
-  <!-- FINAL CTA -->
+  <!-- FINAL CTA: the message stands inside a temple front -->
   <section class="sec cta" id="audit">
-    <div class="cta-art brk">
-      <span class="fig">Fig. 04 — Zeus</span>
-      <svg class="cta-col l" viewBox="0 0 80 400" aria-hidden="true"><use href="#column"/></svg>
-      <svg class="cta-col r" viewBox="0 0 80 400" aria-hidden="true"><use href="#column"/></svg>
-      <div class="zeus-wrap"><img src="images/zeus.webp" width="358" height="520" alt="" loading="lazy"></div>
-    </div>
-    <div class="cta-copy reveal">
-      <h2 class="cta-line">Stop posting like <mark>it's a side quest.</mark></h2>
-      <p>Book a free 20-minute audit of your current socials — we'll tell you exactly what's working and what isn't.</p>
-    </div>
-    <div class="cta-btns">
-      <a href="mailto:hello@wavemgmnt.com?subject=Free%20social%20audit" class="btn block">Book your free audit <svg aria-hidden="true"><use href="#arrow"/></svg></a>
-      <a href="#pricing" class="btn line block">See pricing</a>
+    <div class="portico reveal">
+      <div class="entab" aria-hidden="true"><i></i><div class="meander"></div><i></i></div>
+      <div class="portico-row">
+        <div class="pcol" aria-hidden="true"><svg class="cap" viewBox="0 0 80 38" aria-hidden="true"><rect x="4" y="1" width="72" height="7"/><path d="M10 8H70V18H10Z"/><circle cx="10" cy="20" r="10"/><circle cx="10" cy="20" r="5.5"/><circle cx="10" cy="20" r="1.5"/><circle cx="70" cy="20" r="10"/><circle cx="70" cy="20" r="5.5"/><circle cx="70" cy="20" r="1.5"/><rect x="16" y="30" width="48" height="7"/></svg><i></i><svg class="base" viewBox="0 0 80 32" aria-hidden="true"><rect x="12" y="1" width="56" height="8" rx="4"/><rect x="8" y="9" width="64" height="8" rx="4"/><rect x="2" y="17" width="76" height="14"/></svg></div>
+        <div class="pcol x" aria-hidden="true"><svg class="cap" viewBox="0 0 80 38" aria-hidden="true"><rect x="4" y="1" width="72" height="7"/><path d="M10 8H70V18H10Z"/><circle cx="10" cy="20" r="10"/><circle cx="10" cy="20" r="5.5"/><circle cx="10" cy="20" r="1.5"/><circle cx="70" cy="20" r="10"/><circle cx="70" cy="20" r="5.5"/><circle cx="70" cy="20" r="1.5"/><rect x="16" y="30" width="48" height="7"/></svg><i></i><svg class="base" viewBox="0 0 80 32" aria-hidden="true"><rect x="12" y="1" width="56" height="8" rx="4"/><rect x="8" y="9" width="64" height="8" rx="4"/><rect x="2" y="17" width="76" height="14"/></svg></div>
+        <div class="portico-in">
+          <span class="label">Ready when you are</span>
+          <h2 class="cta-line">Stop posting like<br><mark>it's a side quest.</mark></h2>
+          <p>Book a free 20-minute audit of your current socials — we'll tell you exactly what's working and what isn't.</p>
+          <div class="cta-btns">
+            <a href="mailto:hello@wavemgmnt.com?subject=Free%20social%20audit" class="btn">Book your free audit <svg aria-hidden="true"><use href="#arrow"/></svg></a>
+            <a href="#pricing" class="btn line">See pricing</a>
+          </div>
+        </div>
+        <div class="pcol x" aria-hidden="true"><svg class="cap" viewBox="0 0 80 38" aria-hidden="true"><rect x="4" y="1" width="72" height="7"/><path d="M10 8H70V18H10Z"/><circle cx="10" cy="20" r="10"/><circle cx="10" cy="20" r="5.5"/><circle cx="10" cy="20" r="1.5"/><circle cx="70" cy="20" r="10"/><circle cx="70" cy="20" r="5.5"/><circle cx="70" cy="20" r="1.5"/><rect x="16" y="30" width="48" height="7"/></svg><i></i><svg class="base" viewBox="0 0 80 32" aria-hidden="true"><rect x="12" y="1" width="56" height="8" rx="4"/><rect x="8" y="9" width="64" height="8" rx="4"/><rect x="2" y="17" width="76" height="14"/></svg></div>
+        <div class="pcol" aria-hidden="true"><svg class="cap" viewBox="0 0 80 38" aria-hidden="true"><rect x="4" y="1" width="72" height="7"/><path d="M10 8H70V18H10Z"/><circle cx="10" cy="20" r="10"/><circle cx="10" cy="20" r="5.5"/><circle cx="10" cy="20" r="1.5"/><circle cx="70" cy="20" r="10"/><circle cx="70" cy="20" r="5.5"/><circle cx="70" cy="20" r="1.5"/><rect x="16" y="30" width="48" height="7"/></svg><i></i><svg class="base" viewBox="0 0 80 32" aria-hidden="true"><rect x="12" y="1" width="56" height="8" rx="4"/><rect x="8" y="9" width="64" height="8" rx="4"/><rect x="2" y="17" width="76" height="14"/></svg></div>
+      </div>
+      <div class="stylobate" aria-hidden="true"><i></i><i></i><i></i></div>
     </div>
   </section>
 
 </main>
 
 <footer class="frame">
-  <div class="meander" aria-hidden="true"></div>
-  <div class="foot">
-    <div>
-      <a href="#top" class="logo-f"><svg aria-hidden="true"><use href="#logo-mark"/></svg>wave.mgmnt</a>
-      <p>Social media management built exclusively for personal trainers, coaches, and gyms.</p>
-    </div>
-    <div class="foot-col">
-      <h4>Site</h4>
-      <a href="#process">Process</a>
-      <a href="#services">Services</a>
-      <a href="#pricing">Pricing</a>
-    </div>
-    <div class="foot-col">
-      <h4>Clients</h4>
-      <a href="portal.html">Client portal</a>
-      <a href="portal.html">Content calendar</a>
-      <a href="portal.html">Upload files</a>
-    </div>
-    <div class="foot-col">
-      <h4>Contact</h4>
-      <a href="mailto:hello@wavemgmnt.com">hello@wavemgmnt.com</a>
-      <a href="mailto:hello@wavemgmnt.com?subject=Free%20social%20audit">Book a call</a>
-    </div>
-  </div>
-  <div class="foot-bottom">
-    <span>© 2026 wave.mgmnt</span>
-    <span>Built for people who'd rather be coaching.</span>
+  <div class="foot-min">
+    <nav aria-label="Footer">
+      <a href="portal.html">Client login</a>
+      <a href="https://www.instagram.com/wave.mgmnt/" target="_blank" rel="noopener">Instagram</a>
+      <a href="mailto:hello@wavemgmnt.com" class="mail">hello@wavemgmnt.com</a>
+    </nav>
+    <span>© 2026 — Built for people who'd rather be coaching.</span>
   </div>
 </footer>
 
